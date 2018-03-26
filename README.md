@@ -58,9 +58,9 @@ Using cdn:
 faxios()
   .baseURL('http://www.test.com/')
   .url('/users/')
-  .header('Autharization' 'your_token...')
-  .param('id' 'replace_this')
-  .data('title' 'hello there!')
+  .header('Autharization', 'your_token...')
+  .param('id', 'replace_this')
+  .data('title', 'hello there!')
   .post()
   .then(res => {})
   .catch(err => {})
@@ -105,8 +105,8 @@ faxios()
 faxios()
   .baseURL('http://www.test.com/')
   .url('/users/')
-  .header('Autharization' 'your_token...')
-  .header('X-Custom-Header': 'foobar')
+  .header('Autharization', 'your_token...')
+  .header('X-Custom-Header', 'foobar')
   /*
    or
    .header({
@@ -125,7 +125,7 @@ faxios()
 faxios()
   .baseURL('http://www.test.com/')
   .url('/users/')
-  .param('id' 'replace_this')
+  .param('id', 'replace_this')
   /*
    or
    .param({
@@ -144,7 +144,7 @@ faxios()
 faxios()
   .baseURL('http://www.test.com/')
   .url('/users/')
-  .data('title' 'hello there!')
+  .data('title', 'hello there!')
   /*
    or
    .data({
