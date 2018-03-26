@@ -1,10 +1,8 @@
 {
   "name": "faxios",
-  "version": "0.0.1",
-  "description":
-    "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
-
-  "main": "es5.js",
+  "version": "0.0.2",
+  "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
+  "main": "dist/es5.js",
   "scripts": {
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
@@ -14,7 +12,13 @@
     "type": "git",
     "url": "git+https://github.com/lsabbagh/faxios"
   },
-  "keywords": ["xhr", "http", "ajax", "promise", "node"],
+  "keywords": [
+    "xhr",
+    "http",
+    "ajax",
+    "promise",
+    "node"
+  ],
   "author": "wassim",
   "license": "MIT",
   "bugs": {
@@ -22,7 +26,8 @@
   },
   "homepage": "https://github.com/lsabbagh/faxios/issues#readme",
   "devDependencies": {
-    "fuse-box": "^3.0.0-next.11"
+    "fuse-box": "^3.0.0-next.11",
+    "uglify-es": "^3.3.9"
   },
   "dependencies": {
     "axios": "^0.17.1"
