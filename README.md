@@ -156,3 +156,19 @@ faxios()
   .then(res => {})
   .catch(err => {})
 ```
+
+`TODOS`
+- [x] add on function
+- [ ] add extend function
+- [ ] add clone function
+- [ ] add use function
+- [ ] add log function
+- [ ] add cancel function
+- [ ] add update function
+- [ ] add shortcut function
+- [ ] add key function
+- [ ] add history
+- [ ] add cache
+- [ ] add save function
+- [ ] add appendURL function
+- [ ] add appendData function
