@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
   "main": "dist/es5.js",
   "scripts": {

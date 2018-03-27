@@ -8,7 +8,7 @@ let isProduction = true;
 
 // bundle name needs to be changed too (as we are making an isolate build and
 // and we need to bundle the API into it
-let bundleName = "es6";
+let bundleName = "es5";
 
 let instructions = "> faxios.js";
 
@@ -49,7 +49,8 @@ Sparky.task("dev", ["clean"], () => {
 });
 
 Sparky.task("dist-es5", async() => {
-    target = "browser@es5"
+    target = "es5"
+
     isProduction = true;
     //isProduction = false;
     bundleName = "es5"

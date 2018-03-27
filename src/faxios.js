@@ -92,4 +92,3 @@ const faxios = (() => () => {
 })()
 
 module.exports = faxios
-window.faxios = faxios
