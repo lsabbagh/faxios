@@ -11,7 +11,6 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
   return axios
     .request(config)
     .then(response => {
-      loading = false
       let info = { ...config, loading: true, response }
       notify(_.listeners.change, info)
       notify(_.listeners.success, info)

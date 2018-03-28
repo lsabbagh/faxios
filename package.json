@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
@@ -28,7 +28,11 @@
   },
   "homepage": "https://github.com/lsabbagh/faxios/issues#readme",
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "fuse-box": "^3.0.0-next.11",
     "rollup": "^0.57.1",
     "rollup-plugin-commonjs": "^9.1.0",

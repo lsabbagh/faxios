@@ -4,6 +4,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var fetch = require('./fetch');
 var types = require('./types');
+var joinUrl = require('proper-url-join');
 
 var faxios = function () {
   return function () {
@@ -27,6 +28,21 @@ var faxios = function () {
       return _instance;
     };
 
+    var clear = function clear(key, value) {
+      if (types.any.includes(key)) {
+        delete _.configuration[key];
+      }
+      return _instance;
+    };
+
+    var url = function url() {
+      for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+        params[_key] = arguments[_key];
+      }
+
+      return set('url', joinUrl.apply(undefined, [_.configuration.url].concat(params)));
+    };
+
     var push = function push(key, value) {
       if (types.array.includes(key) && typeof value == 'function') {
         if (!_.configuration[key]) _.configuration[key] = [];
@@ -36,8 +52,8 @@ var faxios = function () {
     };
 
     var add = function add(target) {
-      for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        params[_key - 1] = arguments[_key];
+      for (var _len2 = arguments.length, params = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        params[_key2 - 1] = arguments[_key2];
       }
 
       if (types.object.includes(target)) {
@@ -65,6 +81,7 @@ var faxios = function () {
 
     _instance = _extends({}, _instance, {
       set: set,
+      clear: clear,
       add: add,
       push: push,
       on: on,
@@ -99,9 +116,7 @@ var faxios = function () {
       method: function method(_method) {
         return set('method', _method);
       },
-      url: function url(_url) {
-        return set('url', _url);
-      },
+      url: url,
       mehod: function mehod(method) {
         return set('method', method);
       },
@@ -110,22 +125,22 @@ var faxios = function () {
       },
 
       header: function header() {
-        for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-          params[_key2] = arguments[_key2];
+        for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+          params[_key3] = arguments[_key3];
         }
 
         return add.apply(undefined, ['headers'].concat(params));
       },
       param: function param() {
-        for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-          params[_key3] = arguments[_key3];
+        for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+          params[_key4] = arguments[_key4];
         }
 
         return add.apply(undefined, ['params'].concat(params));
       },
       data: function data() {
-        for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-          params[_key4] = arguments[_key4];
+        for (var _len5 = arguments.length, params = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+          params[_key5] = arguments[_key5];
         }
 
         return add.apply(undefined, ['data'].concat(params));
