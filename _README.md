@@ -56,12 +56,7 @@ Using cdn:
 
 ```js
 faxios()
-  .baseURL('http://www.test.com/')
-  .url('/users/')
-  .header('Autharization', 'your_token...')
-  .param('id', 'replace_this')
-  .data('title', 'hello there!')
-  .post()
+  .get('https://jsonplaceholder.typicode.com/posts/1/comments') // => Promise
   .then(res => {})
   .catch(err => {})
 ```
@@ -70,8 +65,8 @@ faxios()
 
 ```js
 faxios()
-  .baseURL('http://www.test.com/')
-  .request() // default method is get
+  .baseUrl('http://jsonplaceholder.typicode.com')
+  .get('/posts/1/comments') // => Promise
   .then(res => {})
   .catch(err => {})
 ```
@@ -80,21 +75,39 @@ faxios()
 
 ```js
 faxios()
-  .baseURL('http://www.test.com/')
-  .url('/users/')
-  .request()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('posts/1/comments' )
+  // or .url('posts', 1, 'comments')
+  .get() // => Promise
   .then(res => {})
   .catch(err => {})
+
+
 ```
 
 `method`
 
 ```js
 faxios()
-  .baseURL('http://www.test.com/')
-  .url('/users/')
-  .method('post') // get, delete, head, options, post, put, patch
-  .request() // can use the name of the method, like post()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('posts', 1, 'comments')
+  .method('get')
+  .request() // => Promise
+  .then(res => {})
+  .catch(err => {})
+```
+
+
+
+`param`
+
+```js
+faxios()
+  .baseUrl('http://www.placeholder.typicode.com')
+  .url('posts')
+  .method('get')
+  .param('postId', 1)
+  .request() // => Promise
   .then(res => {})
   .catch(err => {})
 ```
@@ -103,56 +116,31 @@ faxios()
 
 ```js
 faxios()
-  .baseURL('http://www.test.com/')
-  .url('/users/')
-  .header('Autharization', 'your_token...')
-  .header('X-Custom-Header', 'foobar')
-  /*
-   or
-   .header({
-      Autharization: your_token...,
-     'X-Custom-Header': foobar
-   })
-  */
-  .post()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('posts')
+  .method('get')
+  .param('postId', 1)
+  .header('Authorization', 'your_token')
+  .request() // => Promise
   .then(res => {})
   .catch(err => {})
 ```
 
-`param`
+
+
+`header`
 
 ```js
 faxios()
-  .baseURL('http://www.test.com/')
-  .url('/users/')
-  .param('id', 'replace_this')
-  /*
-   or
-   .param({
-      id: your_id,
-     name: foobar
-   })
-  */
-  .post()
-  .then(res => {})
-  .catch(err => {})
-```
-
-`data`
-
-```js
-faxios()
-  .baseURL('http://www.test.com/')
-  .url('/users/')
-  .data('title', 'hello there!')
-  /*
-   or
-   .data({
-      id: your_id,
-     title: foobar
-   })
-  */
-  .post()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('posts')
+  .method('post')
+  .header('Authorization', 'your_token')
+  .data('key1', 'value1')  // could be any key or value
+  .data('key2', 'value2')  // could be any key or value
+  .data('key3', 'value3')  // could be any key or value
+  // .....
+  .request() // => Promise
   .then(res => {})
   .catch(err => {})
 ```

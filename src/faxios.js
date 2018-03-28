@@ -1,5 +1,8 @@
 const fetch = require('./fetch')
 const types = require('./types')
+const joinUrl = require('proper-url-join')
+
+
 
 const faxios = (() => () => {
   let _instance = {}
@@ -15,11 +18,23 @@ const faxios = (() => () => {
     configuration: {}
   }
 
+
   let set = (key, value) => {
     if (types.any.includes(key)) {
       _.configuration[key] = value
     }
     return _instance
+  }
+
+  let clear = (key, value) => {
+    if (types.any.includes(key)) {
+      delete _.configuration[key]
+    }
+    return _instance
+  }
+
+  let url = (...params) => {
+    return set('url', joinUrl(_.configuration.url, ...params))
   }
 
   let push = (key, value) => {
@@ -57,6 +72,7 @@ const faxios = (() => () => {
   _instance = {
     ..._instance,
     set,
+    clear,
     add,
     push,
     on,
@@ -73,7 +89,7 @@ const faxios = (() => () => {
     patch: (url, data, config) => fetch(_, 'patch', url, config, data),
 
     method: method => set('method', method),
-    url: url => set('url', url),
+    url,
     mehod: method => set('method', method),
     baseURL: baseURL => set('baseURL', baseURL),
 
