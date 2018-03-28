@@ -38,7 +38,6 @@
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
-    "axios": "^0.17.1",
-    "react-build-lib": "0.0.2"
+    "axios": "^0.17.1"
   }
 }
