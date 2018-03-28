@@ -1,9 +1,11 @@
 {
   "name": "faxios",
-  "version": "0.0.4",
+  "version": "0.0.5",
+  "main": "lib/index.js",
+  "main:next": "lib/index.js",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
-  "main": "dist/es5.js",
   "scripts": {
+    "build": "babel src --out-dir es5 && rollup -c",
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
     "test": "mocha src/faxios.test.js -w src/faxios.test.js -w"
@@ -26,10 +28,17 @@
   },
   "homepage": "https://github.com/lsabbagh/faxios/issues#readme",
   "devDependencies": {
+    "babel-preset-stage-0": "^6.24.1",
     "fuse-box": "^3.0.0-next.11",
+    "rollup": "^0.57.1",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0",
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
-    "axios": "^0.17.1"
+    "axios": "^0.17.1",
+    "react-build-lib": "0.0.2"
   }
 }

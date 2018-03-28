@@ -26,8 +26,10 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
       return Promise.reject(error)
     })
 }
-module.exports = fetch
+
 
 const notify = (listeners, data) => {
   listeners.forEach(_listener => _listener(data))
 }
+
+module.exports = fetch

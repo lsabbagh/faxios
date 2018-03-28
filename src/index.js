@@ -1,2 +1,5 @@
-export { Calc } from "./utils";
-import faxios from 'faxios'
+const faxios =  require('./faxios')
+
+module.exports = faxios
+
+export default faxios
