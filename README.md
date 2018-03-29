@@ -56,7 +56,7 @@ Using cdn:
 
 ```js
 faxios()
-  .get('https://jsonplaceholder.typicode.com/posts/1/comments') // => Promise
+ .get('https://jsonplaceholder.typicode.com/posts/1/comments')
   .then(res => {})
   .catch(err => {})
 ```
@@ -67,6 +67,7 @@ faxios()
 faxios()
   .baseUrl('http://jsonplaceholder.typicode.com')
   .get('/posts/1/comments') // => Promise
+
   .then(res => {})
   .catch(err => {})
 ```
@@ -79,6 +80,7 @@ faxios()
   .url('posts/1/comments' )
   // or .url('posts', 1, 'comments')
   .get() // => Promise
+
   .then(res => {})
   .catch(err => {})
 
@@ -93,6 +95,7 @@ faxios()
   .url('posts', 1, 'comments')
   .method('get')
   .request() // => Promise
+
   .then(res => {})
   .catch(err => {})
 ```
@@ -108,6 +111,7 @@ faxios()
   .method('get')
   .param('postId', 1)
   .request() // => Promise
+
   .then(res => {})
   .catch(err => {})
 ```
@@ -122,6 +126,7 @@ faxios()
   .param('postId', 1)
   .header('Authorization', 'your_token')
   .request() // => Promise
+
   .then(res => {})
   .catch(err => {})
 ```
@@ -133,14 +138,56 @@ faxios()
 ```js
 faxios()
   .baseURL('http://jsonplaceholder.typicode.com')
-  .url('posts')
+  .url('/posts')
   .method('post')
   .header('Authorization', 'your_token')
+  .param('postId', 1)
   .data('key1', 'value1')  // could be any key or value
   .data('key2', 'value2')  // could be any key or value
   .data('key3', 'value3')  // could be any key or value
-  // .....
   .request() // => Promise
+
+  .then(res => {})
+  .catch(err => {})
+```
+
+`alias`
+
+```js
+faxios()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('/posts')
+  .method('post')
+  .header('Content-Type', 'text/html')
+  .param('postId', 1)
+  .data('key1', 'value1')
+  .alias('param', 'name') // <-- setting the alias
+  .name('the name..') // <-- param('name', 'the name...')
+  .request() // => Promise
+
+  .then(res => {})
+  .catch(err => {})
+```
+
+`use`
+
+```js
+// authentication middleware
+let auth = fax => fax
+  .header('Authorization', 'your_token')
+  .alias('param', 'name')
+
+faxios()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('/posts')
+  .method('post')
+  .header('Content-Type', 'text/html')
+  .param('postId', 1)
+  .data('key1', 'value1')
+  .name('the name..') 
+  .use(auth) // <--use the middleware
+  .request() // => Promise
+
   .then(res => {})
   .catch(err => {})
 ```
@@ -149,11 +196,11 @@ faxios()
 - [x] add on function
 - [ ] add extend function
 - [ ] add clone function
-- [ ] add use function
+- [x] add use function
 - [ ] add log function
 - [ ] add cancel function
 - [ ] add update function
-- [ ] add shortcut function
+- [x] add shortcut function
 - [ ] add key function
 - [ ] add history
 - [ ] add cache

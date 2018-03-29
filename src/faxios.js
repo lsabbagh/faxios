@@ -2,8 +2,6 @@ const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
 
-
-
 const faxios = (() => () => {
   let _instance = {}
   let _ = {
@@ -69,13 +67,31 @@ const faxios = (() => () => {
     return _instance
   }
 
+  let alias = (type, name, key) => {
+    if (!_instance[name] && _instance[type]) {
+      _instance[name] = value => {
+        _instance[type](key || name, value)
+        return _instance
+      }
+    }
+    return _instance
+  }
+
+  let use = (middleware) => {
+    if (typeof middleware == 'function')
+      middleware(_instance, _.configuration, _.listeners)
+    return _instance
+  }
+
   _instance = {
     ..._instance,
     set,
     clear,
     add,
     push,
+    use,
     on,
+    alias,
 
     request: config => fetch(_, 'request', undefined, config),
 
