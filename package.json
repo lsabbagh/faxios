@@ -1,11 +1,11 @@
 {
   "name": "faxios",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
   "scripts": {
-    "build": "babel src --out-dir es5 && rollup -c",
+    "build": "babel src --out-dir lib",
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
     "test": "mocha src/faxios.test.js -w src/faxios.test.js -w"
