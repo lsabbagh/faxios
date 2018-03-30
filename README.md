@@ -151,17 +151,36 @@ faxios()
   .catch(err => {})
 ```
 
+`use`
+
+```js
+// base middleware
+let base = fax => fax
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .header('Content-Type', 'text/html')
+
+// posts middleware
+let posts = fax => fax
+  .use(base)
+  .url('/posts')
+  .data('key1', 'value1')
+  .alias('param', 'postId') // <-- setting the alias
+
+faxios()
+  .use(posts)
+  .postId(1)
+  .request() // => Promise
+
+  .then(res => {})
+  .catch(err => {})
+```
+
 `alias`
 
 ```js
 faxios()
-  .baseURL('http://jsonplaceholder.typicode.com')
-  .url('/posts')
-  .method('post')
-  .header('Content-Type', 'text/html')
-  .param('postId', 1)
-  .data('key1', 'value1')
-  .alias('param', 'name') // <-- setting the alias
+  .use(posts)
+  .postId(1)
   .name('the name..') // <-- param('name', 'the name...')
   .request() // => Promise
 
@@ -169,28 +188,58 @@ faxios()
   .catch(err => {})
 ```
 
-`use`
-
+`listeners`
 ```js
-// authentication middleware
-let auth = fax => fax
-  .header('Authorization', 'your_token')
-  .alias('param', 'name')
-
 faxios()
-  .baseURL('http://jsonplaceholder.typicode.com')
-  .url('/posts')
-  .method('post')
-  .header('Content-Type', 'text/html')
-  .param('postId', 1)
+  .use(base)
+  .postId(1)
   .data('key1', 'value1')
-  .name('the name..') 
-  .use(auth) // <--use the middleware
-  .request() // => Promise
 
+  .before(config => console.log('before sending the request: ', config))
+  .success(config => console.log('only on success response: ', config))
+  .error(config => console.log('only on error response: ', config))
+  .done(config => console.log('on both success and error responses: ', config))
+  .change(config => console.log('before sending request and on response: ', config))
+
+  .request() // => Promise
   .then(res => {})
   .catch(err => {})
 ```
+
+`set`
+
+```js
+faxios()
+   // check axios docs
+  .use(base)
+  .set('param', 'postId', 1) // --> param('postId', 1)
+  .request() // => Promise
+  .then(res => {})
+  .catch(err => {})
+  /*
+    set('url','value')
+    set('method','value')
+    set('baseURL','value')
+    set('paramsSerializer','value')
+    set('timeout','value')
+    set('withCredentials','value')
+    set('adapter','value')
+    set('responseType','value')
+    set('responseEncoding','value')
+    set('xsrfCookieName','value')
+    set('xsrfHeaderName','value')
+    set('onUploadProgress','value')
+    set('onDownloadProgress','value')
+    set('maxContentLength','value')
+    set('maxContentLength','value')
+    set('validateStatus','value')
+    set('maxRedirects','value')
+    set('socketPath','value')
+    set('httpAgent','value')
+    set('httpsAgent','value')
+  */
+```
+
 
 `TODOS`
 - [x] add on function

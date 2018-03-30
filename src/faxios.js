@@ -7,7 +7,7 @@ const faxios = (() => () => {
   let _ = {
     _instance,
     listeners: {
-      pre: [],
+      before: [],
       change: [],
       success: [],
       error: [],
@@ -114,7 +114,7 @@ const faxios = (() => () => {
     data: (...params) => add('data', ...params),
 
 
-    pre: (_listener) => on('pre', _listener),
+    before: (_listener) => on('before', _listener),
     change: (_listener) => on('change', _listener),
     success: (_listener) => on('success', _listener),
     error: (_listener) => on('error', _listener),

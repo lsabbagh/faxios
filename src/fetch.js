@@ -5,7 +5,7 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
   if (data) config.data = data
 
   let info = { ...config, loading: true }
-  notify(_.listeners.pre, info)
+  notify(_.listeners.before, info)
   notify(_.listeners.change, info)
 
   return axios
