@@ -175,6 +175,26 @@ faxios()
   .catch(err => {})
 ```
 
+`middleware`
+
+```js
+// saving the middleware in faxios,
+// notice it's not saved in an instance
+faxios.middleware('base', base)
+
+faxios()
+  .use('base') // name of the saved middleware
+  .use(posts) // reference to the middleware
+  .postId(1)
+  .data('key1', 'value1')
+
+  .change(config => console.log(config))
+
+  .request() // => Promise
+  .then(res => {})
+  .catch(err => {})
+```
+
 `alias`
 
 ```js
@@ -195,16 +215,17 @@ faxios()
   .postId(1)
   .data('key1', 'value1')
 
-  .before(config => console.log('before sending the request: ', config))
-  .success(config => console.log('only on success response: ', config))
-  .error(config => console.log('only on error response: ', config))
-  .done(config => console.log('on both success and error responses: ', config))
-  .change(config => console.log('before sending request and on response: ', config))
+  .before(config => console.log('before sending', config))
+  .success(config => console.log('only on success', config))
+  .error(config => console.log('only on error ', config))
+  .done(config => console.log('on success and error', config))
+  .change(config => console.log('before and done', config))
 
   .request() // => Promise
   .then(res => {})
   .catch(err => {})
 ```
+
 
 `set`
 
@@ -243,16 +264,16 @@ faxios()
 
 `TODOS`
 - [x] add on function
-- [ ] add extend function
 - [ ] add clone function
 - [x] add use function
 - [ ] add log function
 - [ ] add cancel function
 - [ ] add update function
 - [x] add shortcut function
-- [ ] add key function
+- [x] add key function
 - [ ] add history
 - [ ] add cache
 - [ ] add save function
-- [ ] add appendURL function
 - [ ] add appendData function
+
+- [x] add static middlewares

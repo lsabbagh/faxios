@@ -2,6 +2,8 @@ const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
 
+const _middlewares = {}
+
 const faxios = (() => () => {
   let _instance = {}
   let _ = {
@@ -67,6 +69,15 @@ const faxios = (() => () => {
     return _instance
   }
 
+  let key = (...params) => {
+    if (params.length == 1 && typeof params[0] == 'function') {
+      _.key = params[0](_.configuration)
+    } else {
+      _.key = params.join('')
+    }
+    return _instance
+  }
+
   let alias = (type, name, key) => {
     if (!_instance[name] && _instance[type]) {
       _instance[name] = value => {
@@ -80,6 +91,8 @@ const faxios = (() => () => {
   let use = (middleware) => {
     if (typeof middleware == 'function')
       middleware(_instance, _.configuration, _.listeners)
+    else if (_middlewares[middleware])
+      _middlewares[middleware](_instance, _.configuration, _.listeners)
     return _instance
   }
 
@@ -92,6 +105,7 @@ const faxios = (() => () => {
     use,
     on,
     alias,
+    key,
 
     request: config => fetch(_, 'request', undefined, config),
 
@@ -104,7 +118,6 @@ const faxios = (() => () => {
     put: (url, data, config) => fetch(_, 'put', url, config, data),
     patch: (url, data, config) => fetch(_, 'patch', url, config, data),
 
-    method: method => set('method', method),
     url,
     mehod: method => set('method', method),
     baseURL: baseURL => set('baseURL', baseURL),
@@ -122,5 +135,10 @@ const faxios = (() => () => {
   }
   return _instance
 })()
+
+faxios.middleware = (key, value) => {
+  if (value) return _middlewares[key] = value
+  return _middlewares[key]
+}
 
 module.exports = faxios
