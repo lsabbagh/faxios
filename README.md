@@ -151,6 +151,19 @@ faxios()
   .catch(err => {})
 ```
 
+`alias`
+
+```js
+faxios()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .alias('param', 'postId') // <-- setting the alias
+  .postId(1)
+  .request() // => Promise
+
+  .then(res => {})
+  .catch(err => {})
+```
+
 `use`
 
 ```js
@@ -195,18 +208,6 @@ faxios()
   .catch(err => {})
 ```
 
-`alias`
-
-```js
-faxios()
-  .use(posts)
-  .postId(1)
-  .name('the name..') // <-- param('name', 'the name...')
-  .request() // => Promise
-
-  .then(res => {})
-  .catch(err => {})
-```
 
 `listeners`
 ```js
@@ -224,6 +225,20 @@ faxios()
   .request() // => Promise
   .then(res => {})
   .catch(err => {})
+```
+
+`loading`
+```js
+
+faxios()
+  .use(base)
+  .key('getting_posts')
+  .set('param', 'postId', 1) // --> param('postId', 1)
+  .request() // => Promise
+
+faxios.loading('getting_posts') // => true
+// after two seconds
+faxios.loading('getting_posts') // => false
 ```
 
 
