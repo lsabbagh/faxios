@@ -15,14 +15,14 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
       let info = { key, ...config, loading: false, response}
       notify(_.listeners.change, info)
       notify(_.listeners.success, info)
-      notify(_.listeners.done, info)
+      notify(_.listeners.complete, info)
       return response
     })
     .catch(error => {
       let info = { key, ...config, loading: false, error}
       notify(_.listeners.change, info)
       notify(_.listeners.error, info)
-      notify(_.listeners.done, info)
+      notify(_.listeners.complete, info)
       return Promise.reject(error)
     })
 }

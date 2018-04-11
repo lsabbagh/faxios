@@ -2,6 +2,8 @@ const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
 
+const _aliases = require('./defaults/aliases')
+
 const _middlewares = {}
 
 const faxios = (() => () => {
@@ -13,7 +15,12 @@ const faxios = (() => () => {
       change: [],
       success: [],
       error: [],
-      done: []
+      complete: [],
+
+      informational: [],
+      redirection: [],
+      clientError: [],
+      serverError: []
     },
     configuration: {}
   }
@@ -123,6 +130,7 @@ const faxios = (() => () => {
     baseURL: baseURL => set('baseURL', baseURL),
 
     header: (...params) => add('headers', ...params),
+
     param: (...params) => add('params', ...params),
     data: (...params) => add('data', ...params),
 
@@ -131,8 +139,10 @@ const faxios = (() => () => {
     change: (_listener) => on('change', _listener),
     success: (_listener) => on('success', _listener),
     error: (_listener) => on('error', _listener),
-    done: (_listener) => on('done', _listener),
+    complete: (_listener) => on('complete', _listener),
+    
   }
+  _instance.use(_aliases)
   return _instance
 })()
 
