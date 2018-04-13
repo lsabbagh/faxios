@@ -1,12 +1,8 @@
 # faxios
 
-<!---
 [![npm version](https://img.shields.io/npm/v/faxios.svg?style=flat-square)](https://www.npmjs.org/package/faxios)
-[![build status](https://img.shields.io/travis/faxios/faxios.svg?style=flat-square)](https://travis-ci.org/faxios/faxios)
-[![code coverage](https://img.shields.io/coveralls/mzabriskie/faxios.svg?style=flat-square)](https://coveralls.io/r/mzabriskie/faxios)
 [![npm downloads](https://img.shields.io/npm/dm/faxios.svg?style=flat-square)](http://npm-stat.com/charts.html?package=faxios)
-[![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/mzabriskie/faxios)
---->
+[![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/lsabbagh/faxios)
 
 Promise based HTTP client for the browser and node.js that is build totally on top of axios.
 
