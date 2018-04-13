@@ -1,5 +1,7 @@
 # faxios
 
+[![Join the chat at https://gitter.im/lsabbagh/faxios](https://badges.gitter.im/lsabbagh/faxios.svg)](https://gitter.im/lsabbagh/faxios?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <!---
 [![npm version](https://img.shields.io/npm/v/faxios.svg?style=flat-square)](https://www.npmjs.org/package/faxios)
 [![build status](https://img.shields.io/travis/faxios/faxios.svg?style=flat-square)](https://travis-ci.org/faxios/faxios)
