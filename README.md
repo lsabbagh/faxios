@@ -65,7 +65,7 @@ faxios()
 
 ```js
 faxios()
-  .baseUrl('http://jsonplaceholder.typicode.com')
+  .baseURL('http://jsonplaceholder.typicode.com')
   .get('/posts/1/comments') // => Promise
 
   .then(res => {})
@@ -106,7 +106,7 @@ faxios()
 
 ```js
 faxios()
-  .baseUrl('http://www.placeholder.typicode.com')
+  .baseURL('http://placeholder.typicode.com')
   .url('posts')
   .method('get')
   .param('postId', 1)
@@ -133,7 +133,7 @@ faxios()
 
 
 
-`header`
+`data`
 
 ```js
 faxios()
@@ -172,16 +172,9 @@ let base = fax => fax
   .baseURL('http://jsonplaceholder.typicode.com')
   .header('Content-Type', 'text/html')
 
-// posts middleware
-let posts = fax => fax
+faxios()
   .use(base)
   .url('/posts')
-  .data('key1', 'value1')
-  .alias('param', 'postId') // <-- setting the alias
-
-faxios()
-  .use(posts)
-  .postId(1)
   .request() // => Promise
 
   .then(res => {})

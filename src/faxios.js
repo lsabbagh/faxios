@@ -41,7 +41,8 @@ const faxios = (() => () => {
   }
 
   let url = (...params) => {
-    return set('url', joinUrl(_.configuration.url, ...params))
+    set('url', joinUrl(_.configuration.url, ...params))
+    return _instance
   }
 
   let push = (key, value) => {
@@ -126,7 +127,7 @@ const faxios = (() => () => {
     patch: (url, data, config) => fetch(_, 'patch', url, config, data),
 
     url,
-    mehod: method => set('method', method),
+    method: method => set('method', method),
     baseURL: baseURL => set('baseURL', baseURL),
 
     header: (...params) => add('headers', ...params),
