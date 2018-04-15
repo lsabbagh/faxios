@@ -87,8 +87,6 @@ describe('Basics', function () {
                 .header('Authorization', 'your_token')
                 .param('postId', 1)
                 .data('key1', 'value1') // could be any key or value
-                .data('key2', 'value2') // could be any key or value
-                .data('key3', 'value3') // could be any key or value
                 .request() // => Promise
 
                 .then(res => {
@@ -135,6 +133,23 @@ describe('Basics', function () {
         });
     });
 
+    describe('#on', function () {
+        it('.on(event, function)', function (done) {
+            faxios()
+                .on('complete', () => {})
+                .on('success', () => {})
+                .on('error', () => {})
+                .on('before', () => {})
+                .on('change', () => {})
+                .get('https://jsonplaceholder.typicode.com/posts/1/comments')
+                .then(res => {
+                    done()
+                })
+                .catch(err => {
+                    done('failed')
+                })
+        });
+    });
 
 
 });

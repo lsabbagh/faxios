@@ -28,27 +28,18 @@ Promise based HTTP client for the browser and node.js that is build totally on t
 
 --->
 
-## Installing
+## Install
 
-Using npm:
 
-```bash
-$ npm install faxios
+```
+npm i faxios
+```
+#####    or
+```
+yarn add faixos
 ```
 
-Using bower:
-
-```bash
-$ bower install faxios
-```
-
-Using cdn:
-
-```html
-<script src="https://unpkg.com/faxios/dist/faxios.min.js"></script>
-```
-
-## Examples
+## Example
 
 ```js
 faxios()
@@ -138,9 +129,7 @@ faxios()
   .method('post')
   .header('Authorization', 'your_token')
   .param('postId', 1)
-  .data('key1', 'value1')  // could be any key or value
-  .data('key2', 'value2')  // could be any key or value
-  .data('key3', 'value3')  // could be any key or value
+  .data('key', 'value')  // could be any key or value
   .request() // => Promise
 
   .then(res => {})
@@ -213,10 +202,14 @@ faxios()
 
   // or...
   .on('before', ()=> console.log('on before', config))
-  .on('success', ()=> console.log('only on success', config))
+  .on('success', ()=> console.log('only on success', config)) // on(200, ...)
   .on('error', ()=> console.log('only on error', config))
   .on('complete', ()=> console.log('on success and error', config))
   .on('change', ()=> console.log('on before and complete', config))
+  
+  .on(200, () => console.log('on response status is 200'))
+  .on('2.*', () => console.log('on response status matches the regex 2.*'))
+  .on(404,  () => console.log('on response status is 404'))
 
 
   .request() // => Promise

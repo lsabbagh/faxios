@@ -6,30 +6,38 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
   if (data) config.data = data
 
   let info = { key, ...config, loading: true}
-  notify(_.listeners.before, info)
-  notify(_.listeners.change, info)
+  notify(_.listeners, info, 'before', 'info')
 
   return axios
     .request(config)
     .then(response => {
       let info = { key, ...config, loading: false, response}
-      notify(_.listeners.change, info)
-      notify(_.listeners.success, info)
-      notify(_.listeners.complete, info)
+      let {status} = response
+      notify(_.listeners, info, 'change', 'success', 'complete', status)
       return response
     })
-    .catch(error => {
+    .catch((error = {})=> {
       let info = { key, ...config, loading: false, error}
-      notify(_.listeners.change, info)
-      notify(_.listeners.error, info)
-      notify(_.listeners.complete, info)
+      let {response = {}} = error
+      notify(_.listeners, info, 'change', 'error', 'complete', response.status)
       return Promise.reject(error)
     })
 }
 
 
-const notify = (listeners, data) => {
-  listeners.forEach(_listener => _listener(data))
+const notify = (listeners, data, ...events) => {
+  let keys = Object.keys(listeners) 
+  events.forEach(event => {
+    if(!event) return
+    event = event + ''
+    keys.forEach(key => {
+      if(!key) return
+      key = key + ''
+      if(event == key || event.match(key)) {
+        listeners[key].forEach(listener => listener(data))
+      }
+    })
+  })
 }
 
 module.exports = fetch

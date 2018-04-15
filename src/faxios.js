@@ -10,18 +10,7 @@ const faxios = (() => () => {
   let _instance = {}
   let _ = {
     _instance,
-    listeners: {
-      before: [],
-      change: [],
-      success: [],
-      error: [],
-      complete: [],
-
-      informational: [],
-      redirection: [],
-      clientError: [],
-      serverError: []
-    },
+    listeners: {},
     configuration: {}
   }
 
@@ -70,9 +59,10 @@ const faxios = (() => () => {
     return _instance
   }
 
-  let on = (name, _listener) => {
-    if (_.listeners[name] && typeof _listener == 'function') {
-      _.listeners[name].push(_listener)
+  let on = (key, _listener) => {
+    if (typeof _listener == 'function') {
+      if(!Array.isArray(_.listeners[key])) _.listeners[key] = []
+      _.listeners[key].push(_listener)
     }
     return _instance
   }
@@ -98,9 +88,9 @@ const faxios = (() => () => {
 
   let use = (middleware) => {
     if (typeof middleware == 'function')
-      middleware(_instance, _.configuration, _.listeners)
+      middleware(_instance, _)
     else if (_middlewares[middleware])
-      _middlewares[middleware](_instance, _.configuration, _.listeners)
+      _middlewares[middleware](_instance, _)
     return _instance
   }
 
