@@ -29,12 +29,13 @@ const notify = (listeners, data, ...events) => {
   let keys = Object.keys(listeners) 
   events.forEach(event => {
     if(!event) return
-    event = event + ''
     keys.forEach(key => {
       if(!key) return
-      key = key + ''
-      if(event == key || event.match(key)) {
-        listeners[key].forEach(listener => listener(data))
+      
+      if(event == key ||
+         typeof event == 'string' && event.match(key) ||
+         typeof key == 'string' && key.match(event)) {
+           listeners[key].forEach(listener => listener(data))
       }
     })
   })

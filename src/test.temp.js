@@ -12,8 +12,8 @@ describe('Basics', function () {
                 .on('error', () => console.log('error:'))
                 .on('before', () => console.log('before:'))
                 .on('change', () => console.log('change:'))
-                .on('200', () => console.log('200'))
-                .on('2.*', () => console.log('2xx'))
+                .on(/20+/, () => console.log('/200/'))
+                .on('2..', () => console.log('2xx'))
                 .on(404,  () => console.log('404'))
                 .get('https://jsonplaceholder.typicode.com/posts/1/comments')
                 .then(res => {

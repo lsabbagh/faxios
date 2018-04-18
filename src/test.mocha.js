@@ -141,6 +141,8 @@ describe('Basics', function () {
                 .on('error', () => {})
                 .on('before', () => {})
                 .on('change', () => {})
+                .on(/200/, () => {})
+                .on(/200|400/, () => {})
                 .get('https://jsonplaceholder.typicode.com/posts/1/comments')
                 .then(res => {
                     done()

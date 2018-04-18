@@ -201,15 +201,17 @@ faxios()
   .change(config => console.log('before and complete', config))
 
   // or...
-  .on('before', ()=> console.log('on before', config))
+  .on('before', ()=> console.log('on before', config)) //before the reques
   .on('success', ()=> console.log('only on success', config)) // on(200, ...)
-  .on('error', ()=> console.log('only on error', config))
-  .on('complete', ()=> console.log('on success and error', config))
+  .on('error', ()=> console.log('only on error', config)) // on(state != 200, ...)
+  .on('complete', ()=> console.log('on success and error', config)) 
   .on('change', ()=> console.log('on before and complete', config))
   
   .on(200, () => console.log('on response status is 200'))
-  .on('2.*', () => console.log('on response status matches the regex 2.*'))
   .on(404,  () => console.log('on response status is 404'))
+  .on(/200|400/, () => console.log('on status 200 or 400'))
+  .on(new RegExp('200|400'), () => console.log('on status 200 or 400'))
+  .on('2.*', () => console.log('on response status matches the regex 2.*'))
 
 
   .request() // => Promise
