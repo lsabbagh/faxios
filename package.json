@@ -8,8 +8,8 @@
     "build": "babel src --out-dir lib",
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
-    "test": "mocha src/test.mocha.js",
-    "test:fresh": "npm run build && mocha src/test.mocha.js"
+    "test": "mocha test/builders.js",
+    "test:fresh": "npm run build && mocha test/builders.js"
   },
   "repository": {
     "type": "git",
