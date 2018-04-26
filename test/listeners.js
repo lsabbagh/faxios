@@ -148,7 +148,7 @@ describe('Listeners', function () {
 
     describe('#on 5XX', function () {
         it('.on5XX, onServerError', function (done) {
-            let on5XX, onClientError, error
+            let on5XX, onServerError, error
             faxios()
               .on1XX(() => done("1XX!"))
               .onInformational(() => done("onInformational!"))
@@ -156,19 +156,18 @@ describe('Listeners', function () {
               .on2XX(() => done("on2XX!"))
               .onSuccess(() => done("onSuccess"))
 
-              .on3XX(() => done('on3XX!'))
-              .onRedirectional(() => done('onRedirectional!'))
+              .on3XX(() => done("on3XX!"))
+              .onRedirectional(() => done("onRedirectional!"))
 
+              .on4XX(() => done("on4XX"))
+              .onClientError(() => done("onClientError"))
 
-              .on4XX(() => done('on4XX'))
-              .onClientError(() => done('onClientError'))
-
-              .on5XX(() => on5XX = true)
-              .onServerError(() => onServerError = true)
+              .on5XX(() => (on5XX = true))
+              .onServerError(() => (onServerError = true))
 
               .error(() => (error = true))
 
-              .get("http://www.mocky.io/v2/5ae179472d000028009d7c2o3")
+              .get("http://www.mocky.io/v2/5ae235012d00004f009d8082")
               .then(res => {
                 done("then!");
               })
