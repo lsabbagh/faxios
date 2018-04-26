@@ -35,38 +35,42 @@ const _ = {
     return on.call(this, 'complete', _listener)
   },
 
+  
   onInformational: function (_listener) {
     return on.call(this, '1[0-9][0-9]', _listener)
   },
-
   on1XX: function (_listener) {
     return on.call(this, '1[0-9][0-9]', _listener)
   },
 
+
   onSuccess: function (_listener) {
     return on.call(this, '2[0-9][0-9]', _listener)
   },
-
   on2XX: function (_listener) {
     return on.call(this, '2[0-9][0-9]', _listener)
   },
 
+
   onRedirectional: function (_listener) {
     return on.call(this, '3[0-9][0-9]', _listener)
   },
-
   on3XX: function (_listener) {
     return on.call(this, '3[0-9][0-9]', _listener)
   },
 
+
+  onClientError: function (_listener) {
+    return on.call(this, '4[0-9][0-9]', _listener)
+  },
   on4XX: function (_listener) {
     return on.call(this, '4[0-9][0-9]', _listener)
   },
 
+
   onServerError: function (_listener) {
     return on.call(this, '5[0-9][0-9]', _listener)
   },
-
   on5XX: function (_listener) {
     return on.call(this, '5[0-9][0-9]', _listener)
   },

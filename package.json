@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
@@ -8,8 +8,10 @@
     "build": "babel src --out-dir lib",
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
-    "test": "mocha test/builders.js",
-    "test:fresh": "npm run build && mocha test/builders.js"
+    "test": "mocha test/basics.js test/listeners.js",
+    "test:basics": "mocha test/basics.js",
+    "test:listeners": "mocha test/listeners.js",
+    "test:fresh": "npm run build && mocha test/basics.js test/listeners.js"
   },
   "repository": {
     "type": "git",
