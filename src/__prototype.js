@@ -1,3 +1,5 @@
+const _on = require('./__prototype_on')
+
 const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
@@ -46,16 +48,7 @@ function add(target, ...params) {
   }
   return this
 }
-
-function on(key, listener) {
-  if (typeof listener == 'function') {
-    if (!Array.isArray(this.listeners[key])) this.listeners[key] = []
-    this.listeners[key].push(listener)
-  }
-  return this
-}
-
-let key = (...params) => {
+function key(...params) {
   if (params.length == 1 && typeof params[0] == 'function') {
     this.key = params[0](this.configuration)
   } else {
@@ -83,14 +76,13 @@ function use(middleware) {
 }
 
 
-module.exports = {
+const _ = {
   url,
   set,
   clear,
   add,
   push,
   use,
-  on,
   alias,
   key,
 
@@ -101,12 +93,15 @@ module.exports = {
   get: function (url, config) {
     return fetch(this, 'get', url, config)
   },
+
   delete: function (url, config) {
     return fetch(this, 'delete', url, config)
   },
+
   head: function (url, config) {
     return fetch(this, 'head', url, config)
   },
+
   options: function (url, config) {
     return fetch(this, 'options', url, config)
   },
@@ -114,9 +109,11 @@ module.exports = {
   post: function (url, data, config) {
     return fetch(this, 'post', url, config, data)
   },
+
   put: function (url, data, config) {
     return fetch(this, 'put', url, config, data)
   },
+
   patch: function (url, data, config) {
     return fetch(this, 'patch', url, config, data)
   },
@@ -135,24 +132,12 @@ module.exports = {
   param: function (...params) {
     return add.call(this, 'params', ...params)
   },
+  
   data: function (...params) {
     return add.call(this, 'data', ...params)
   },
 
-
-  before: function (_listener) {
-    return on.call(this, 'before', _listener)
-  },
-  change: function (_listener) {
-    return on.call(this, 'change', _listener)
-  },
-  success: function (_listener) {
-    return on.call(this, 'success', _listener)
-  },
-  error: function (_listener) {
-    return on.call(this, 'error', _listener)
-  },
-  complete: function (_listener) {
-    return on.call(this, 'complete', _listener)
-  },
 }
+
+_.__proto__ = _on
+module.exports = _

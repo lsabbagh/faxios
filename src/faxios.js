@@ -2,9 +2,9 @@ const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
 
-const _aliases = require('./defaults/aliases')
-
+const aliases = require('./aliases')
 const middlewares = require('./middlewares')
+const builders = require('./builders')
 
 const __prototype = require('./__prototype')
 
@@ -19,13 +19,18 @@ const faxios = (() => () => {
   __config_proto.__proto__ = __prototype;
   _instance.__proto__ = __config_proto
 
-  _instance.use(_aliases)
+  _instance.use(aliases)
   return _instance
 })()
 
 faxios.middleware = (key, value) => {
   if (value) return middlewares[key] = value
   return middlewares[key]
+}
+
+faxios.builder = (key, value) => {
+  if (value) return builder[key] = value
+  return builder[key]
 }
 
 module.exports = faxios

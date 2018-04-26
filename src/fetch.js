@@ -26,16 +26,19 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
 
 
 const notify = (listeners, data, ...events) => {
-  let keys = Object.keys(listeners) 
+  let queries = Object.keys(listeners) 
   events.forEach(event => {
     if(!event) return
-    keys.forEach(key => {
-      if(!key) return
+    queries.forEach(query => {
+      if(!query) return
       
-      if(event == key ||
-         typeof event == 'string' && event.match(key) ||
-         typeof key == 'string' && key.match(event)) {
-           listeners[key].forEach(listener => listener(data))
+      if(event == query ||
+         (typeof event == 'string' && event.match(query)) ||
+         (typeof query == 'string' && query.match(event)) ||
+         (event +'').match(query) ||
+         (event +'').match(query + '')
+        ) {
+           listeners[query].forEach(listener => listener(data))
       }
     })
   })
