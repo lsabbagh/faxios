@@ -1,43 +1,13 @@
-# faxios
+# Faxios
 
 [![npm version](https://img.shields.io/npm/v/faxios.svg?style=flat-square)](https://www.npmjs.org/package/faxios)
 [![npm downloads](https://img.shields.io/npm/dm/faxios.svg?style=flat-square)](http://npm-stat.com/charts.html?package=faxios)
 [![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/lsabbagh/faxios)
 
-Promise based HTTP client for the browser and node.js that is build totally on top of axios.
+Method chaining and Promise based HTTP client for the browser and node.js that is build totally on top of axios.
 
-<!---
-## Features
+![Drag Racing](docs/images/http-statuses-boxes.jpg)
 
-* Make [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) from the browser
-* Make [http](http://nodejs.org/api/http.html) requests from node.js
-* Supports the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API
-* Intercept request and response
-* Transform request and response data
-* Cancel requests
-* Automatic transforms for JSON data
-* Client side support for protecting against [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
-
-## Browser Support
-
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
-| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Latest ✔                                                                                 | Latest ✔                                                                                    | Latest ✔                                                                                 | Latest ✔                                                                              | Latest ✔                                                                           | 8+ ✔                                                                                                                         |
-
-[![Browser Matrix](https://saucelabs.com/open_sauce/build_matrix/faxios.svg)](https://saucelabs.com/u/faxios)
-
---->
-
-## Install
-
-
-```
-npm i faxios
-```
-#####    or
-```
-yarn add faixos
-```
 
 ## Example
 
@@ -212,6 +182,40 @@ faxios()
   .on(/200|400/, () => console.log('on status 200 or 400'))
   .on(new RegExp('200|400'), () => console.log('on status 200 or 400'))
   .on('2.*', () => console.log('on response status matches the regex 2.*'))
+
+  .onInformational(200, () => console.log('onInformational response status is 200'))
+
+  on1XX: function (_listener) {
+    return on.call(this, '1[0-9][0-9]', _listener)
+  },
+
+  onSuccess: function (_listener) {
+    return on.call(this, '2[0-9][0-9]', _listener)
+  },
+
+  on2XX: function (_listener) {
+    return on.call(this, '2[0-9][0-9]', _listener)
+  },
+
+  onRedirectional: function (_listener) {
+    return on.call(this, '3[0-9][0-9]', _listener)
+  },
+
+  on3XX: function (_listener) {
+    return on.call(this, '3[0-9][0-9]', _listener)
+  },
+
+  on4XX: function (_listener) {
+    return on.call(this, '4[0-9][0-9]', _listener)
+  },
+
+  onServerError: function (_listener) {
+    return on.call(this, '5[0-9][0-9]', _listener)
+  },
+
+  on5XX: function (_listener) {
+    return on.call(this, '5[0-9][0-9]', _listener)
+  },
 
 
   .request() // => Promise
