@@ -8,7 +8,7 @@ const builders = require('./builders')
 
 const __prototype = require('./__prototype')
 
-const faxios = (() => () => {
+const faxios = (() => (url) => {
   let _instance = {}
 
   let __config_proto = {
@@ -20,6 +20,10 @@ const faxios = (() => () => {
   _instance.__proto__ = __config_proto
 
   _instance.use(aliases)
+  if(typeof url == 'string') {
+    _instance.url(url)
+  }
+
   return _instance
 })()
 

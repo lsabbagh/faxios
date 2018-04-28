@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const fetch = (_, method = 'get', url = '', _config = {}, data) => {
-  let config = { url, ..._.configuration, ..._config }
+  let config = { url, method, ..._.configuration, ..._config }
   let {key} = _
   if (data) config.data = data
 
