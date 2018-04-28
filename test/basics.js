@@ -6,8 +6,7 @@ describe('Basics', function () {
 
     describe('#get', function () {
         it('.get(full_url_)', function (done) {
-            faxios()
-                .get('https://jsonplaceholder.typicode.com/posts/1/comments')
+            faxios('https://jsonplaceholder.typicode.com/posts/1/comments')
                 .then(res => {
                     done()
                 })
@@ -15,6 +14,7 @@ describe('Basics', function () {
                     done('failed')
                 })
         });
+        
     });
 
     describe('#baseUrl', function () {
@@ -33,6 +33,23 @@ describe('Basics', function () {
                 .baseURL('http://jsonplaceholder.typicode.com')
                 .url('/posts/1/comments')
                 .get() // => Promise
+                .then(res => done())
+                .catch(err => done(err))
+        });
+        
+        it('.url(path).GET', function (done) {
+            faxios()
+                .baseURL('http://jsonplaceholder.typicode.com')
+                .url('/posts/1/comments')
+                .GET
+                .then(res => done())
+                .catch(err => done(err))
+        });
+        
+        it('.url(path).then', function (done) {
+            faxios()
+                .baseURL('http://jsonplaceholder.typicode.com/posts/1/comments')
+                .post()
                 .then(res => done())
                 .catch(err => done(err))
         });
@@ -100,15 +117,14 @@ describe('Basics', function () {
     describe('#alias', function () {
         it('.alias(type, key, name)', function (done) {
             faxios()
-                .baseURL('http://jsonplaceholder.typicode.com')
-                .alias('param', 'postId') // <-- setting the alias
-                .postId(1)
-                .request() // => Promise
-
-                .then(res => {
-                    done(res.config.params.postId == '1' ? false : 'postId(1) should add param of key postId=1')
-                })
-                .catch(err => done(err))
+              .baseURL("http://www.mocky.io/v2/5ae4deef2f00002a0028e838")
+              .alias("param", "postId") // <-- setting the alias
+              .postId(1)
+              .GET // => Promise
+              .then(res => {
+                done(res.config.params.postId == "1" ? false : "postId(1) should add param of key postId=1");
+              })
+              .catch(err => done(err));
         });
     });
 
@@ -124,8 +140,7 @@ describe('Basics', function () {
             faxios()
                 .use(base)
                 .url('/posts')
-                .request() // => Promise
-
+                .GET
                 .then(res => {
                     done()
                 })
