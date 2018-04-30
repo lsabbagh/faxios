@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",

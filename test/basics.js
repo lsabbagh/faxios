@@ -5,8 +5,18 @@ describe('Basics', function () {
     this.timeout(10000)
 
     describe('#get', function () {
-        it('.get(full_url_)', function (done) {
+        it('faxios(full_url)', function (done) {
             faxios('https://jsonplaceholder.typicode.com/posts/1/comments')
+                .then(res => {
+                    done()
+                })
+                .catch(err => {
+                    done('failed')
+                })
+        });
+        it('.get(full_url)', function (done) {
+            faxios()
+                .get('https://jsonplaceholder.typicode.com/posts/1/comments')
                 .then(res => {
                     done()
                 })

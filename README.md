@@ -12,18 +12,8 @@ Method chaining and Promise based HTTP client for the browser and node.js that i
 ## Example
 
 ```js
-faxios()
- .get('https://jsonplaceholder.typicode.com/posts/1/comments')
-  .then(res => {})
-  .catch(err => {})
-```
-
-`baseURL`
-
-```js
-faxios()
-  .baseURL('http://jsonplaceholder.typicode.com')
-  .get('/posts/1/comments') // => Promise
+faxios('https://jsonplaceholder.typicode.com/posts/1/comments')
+  .GET // -> Promise
 
   .then(res => {})
   .catch(err => {})
@@ -33,29 +23,26 @@ faxios()
 
 ```js
 faxios()
-  .baseURL('http://jsonplaceholder.typicode.com')
-  .url('posts/1/comments' )
-  // or .url('posts', 1, 'comments')
-  .get() // => Promise
+  .url('http://jsonplaceholder.typicode.com/posts/1/comments')
+  .GET // -> Promise
 
   .then(res => {})
   .catch(err => {})
-
-
 ```
 
-`method`
+
+`baseURL`
 
 ```js
 faxios()
   .baseURL('http://jsonplaceholder.typicode.com')
-  .url('posts', 1, 'comments')
-  .method('get')
-  .request() // => Promise
+  .url('/posts/1/comments')
+  .GET // -> Promise
 
   .then(res => {})
   .catch(err => {})
 ```
+
 
 
 
@@ -65,9 +52,8 @@ faxios()
 faxios()
   .baseURL('http://placeholder.typicode.com')
   .url('posts')
-  .method('get')
   .param('postId', 1)
-  .request() // => Promise
+  .GET // -> Promise
 
   .then(res => {})
   .catch(err => {})
@@ -79,10 +65,9 @@ faxios()
 faxios()
   .baseURL('http://jsonplaceholder.typicode.com')
   .url('posts')
-  .method('get')
   .param('postId', 1)
   .header('Authorization', 'your_token')
-  .request() // => Promise
+  .GET // => Promise
 
   .then(res => {})
   .catch(err => {})
@@ -96,11 +81,27 @@ faxios()
 faxios()
   .baseURL('http://jsonplaceholder.typicode.com')
   .url('/posts')
-  .method('post')
-  .header('Authorization', 'your_token')
+  .header('Authorization', 'f8dc3ee4224987fbc3498234')
   .param('postId', 1)
-  .data('key', 'value')  // could be any key or value
-  .request() // => Promise
+  .data('key', 'value')
+
+  .POST // => Promise
+
+  .then(res => {})
+  .catch(err => {})
+```
+
+`method`
+
+```js
+faxios()
+  .baseURL('http://jsonplaceholder.typicode.com')
+  .url('posts', 1, 'comments')
+
+  // get, post, put, delete, head, options, patch, fetch, request
+  .method('get')
+
+  .FETCH
 
   .then(res => {})
   .catch(err => {})
@@ -113,7 +114,7 @@ faxios()
   .baseURL('http://jsonplaceholder.typicode.com')
   .alias('param', 'postId') // <-- setting the alias
   .postId(1)
-  .request() // => Promise
+  .FETCH
 
   .then(res => {})
   .catch(err => {})
@@ -130,7 +131,7 @@ let base = fax => fax
 faxios()
   .use(base)
   .url('/posts')
-  .request() // => Promise
+  .FETCH
 
   .then(res => {})
   .catch(err => {})
@@ -151,7 +152,7 @@ faxios()
 
   .change(config => console.log(config))
 
-  .request() // => Promise
+  .FETCH
   .then(res => {})
   .catch(err => {})
 ```
@@ -177,9 +178,9 @@ faxios()
   .on('before', ()=> console.log('on before', config)) //before the reques
   .on('success', ()=> console.log('only on success', config)) // on(200, ...)
   .on('error', ()=> console.log('only on error', config)) // on(state != 200, ...)
-  .on('complete', ()=> console.log('on success and error', config)) 
+  .on('complete', ()=> console.log('on success and error', config))
   .on('change', ()=> console.log('on before and complete', config))
-  
+
   .onInformational(() => console.log('onInformational, response status matches 1[0-9][0-9]'))
   .onSuccess(() => console.log('onSuccess, response status matches 2[0-9][0-9]'))
   .onRedirectional(() => console.log('onRedirectional, response status matches 5[0-9][0-9]'))
@@ -194,21 +195,7 @@ faxios()
   .on('2.*', () => console.log('on response status matches the regex 2.*'))
 
 
-  .request() // => Promise
+  .FETCH
   .then(res => {})
   .catch(err => {})
-```
-
-`loading`
-```js
-
-faxios()
-  .use(base)
-  .key('getting_posts')
-  .set('param', 'postId', 1) // --> param('postId', 1)
-  .request() // => Promise
-
-faxios.loading('getting_posts') // => true
-// after two seconds
-faxios.loading('getting_posts') // => false
 ```

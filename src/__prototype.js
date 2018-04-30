@@ -89,11 +89,7 @@ const _ = {
   request: function (config) {
     return fetch(this, 'request', undefined, config)
   },
-  get REQUEST() {
-    return fetch(this, 'request')
-  },
 
-  
   get FETCH() {
     return fetch(this)
   },
@@ -114,7 +110,7 @@ const _ = {
     return fetch(this, 'delete')
   },
 
-  
+
   head: function (url, config) {
     return fetch(this, 'head', url, config)
   },
@@ -163,7 +159,7 @@ const _ = {
   method: function (method) {
     return set.call(this, 'method', method)
   },
-  
+
   baseURL: function (baseURL) {
     return set.call(this, 'baseURL', baseURL)
   },
@@ -175,7 +171,7 @@ const _ = {
   param: function (...params) {
     return add.call(this, 'params', ...params)
   },
-  
+
   data: function (...params) {
     return add.call(this, 'data', ...params)
   },
@@ -199,7 +195,7 @@ const _ = {
   get STREAM() {
     return set.call(this, 'responseType', 'stream')
   },
-  
+
 
   Authorization(token) {
     return add.call(this, 'headers', 'Authorization', token)
@@ -210,7 +206,7 @@ const _ = {
   Accept(type) {
     return add.call(this, 'headers', 'Accept', type)
   },
-  
+
 }
 
 _.__proto__ = _on
