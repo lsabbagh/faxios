@@ -6,7 +6,7 @@
 
 Method chaining and Promise based HTTP client for the browser and node.js that is build totally on top of axios.
 
-![Drag Racing](docs/images/http-statuses-boxes.jpg)
+![Drag Racing](https://github.com/lsabbagh/faxios/blob/master/docs/images/http-statuses-boxes.jpg?raw=true)
 
 
 ## Example
