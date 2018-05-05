@@ -4,6 +4,7 @@ const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
 const middlewares = require('./middlewares')
+const builders = require('./builders')
 
 function set(key, value) {
   if (types.any.includes(key)) {
@@ -75,6 +76,14 @@ function use(middleware) {
   return this
 }
 
+function build(builder) {
+  if (typeof builder == 'function')
+    builder(this)
+  else if (builders[builder])
+    builders[builder](this)
+  return this
+}
+
 
 const _ = {
   url,
@@ -83,6 +92,7 @@ const _ = {
   add,
   push,
   use,
+  build,
   alias,
   key,
 

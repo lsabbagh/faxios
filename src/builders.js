@@ -1,8 +1,8 @@
-export default {
+module.exports = {
   add: function(name, builder){
 
     // @TODO: invalid params
-    if(typeof name == 'string' ||  typeof builder !== 'function')  return
+    if(typeof name != 'string' ||  typeof builder !== 'function')  return
 
     // @TODO: name exist
     //   this[name]
