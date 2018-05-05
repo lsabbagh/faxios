@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Promise based HTTP client for the browser and node.js that is build totally on top of axios.",
@@ -8,6 +8,7 @@
     "build": "babel src --out-dir lib",
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
+    "web": "npm run build && npm run dist",
     "test": "mocha test/basics.js test/listeners.js",
     "test:basics": "mocha test/basics.js",
     "test:listeners": "mocha test/listeners.js",
@@ -48,6 +49,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "console.table": "^0.10.0",
     "proper-url-join": "^1.2.0"
   }
 }

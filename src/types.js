@@ -1,6 +1,7 @@
 module.exports = {
   any: [
     'url',
+    'log',
     'method',
     'baseURL',
     'paramsSerializer',

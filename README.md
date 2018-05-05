@@ -160,7 +160,7 @@ faxios()
 
 `listeners`
 
-![](docs/images/1.jpeg)
+![](https://github.com/lsabbagh/faxios/blob/master/docs/images/1.jpeg?raw=true)
 
 ```js
 faxios()

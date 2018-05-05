@@ -176,6 +176,14 @@ const _ = {
     return add.call(this, 'data', ...params)
   },
 
+  log: function (options) {
+    return set.call(this, 'log', options)
+  },
+
+  get LOG() {
+    return set.call(this, 'log', true)
+  },
+
 
   get ARRAYBUFFER() {
     return set.call(this, 'responseType', 'arraybuffer')

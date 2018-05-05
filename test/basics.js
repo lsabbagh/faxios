@@ -1,5 +1,5 @@
 // testing...
-const faxios = require('../lib/faxios')
+const faxios = require('../lib')
 describe('Basics', function () {
 
     this.timeout(10000)
@@ -24,7 +24,7 @@ describe('Basics', function () {
                     done('failed')
                 })
         });
-        
+
     });
 
     describe('#baseUrl', function () {
@@ -46,7 +46,7 @@ describe('Basics', function () {
                 .then(res => done())
                 .catch(err => done(err))
         });
-        
+
         it('.url(path).GET', function (done) {
             faxios()
                 .baseURL('http://jsonplaceholder.typicode.com')
@@ -55,7 +55,7 @@ describe('Basics', function () {
                 .then(res => done())
                 .catch(err => done(err))
         });
-        
+
         it('.url(path).then', function (done) {
             faxios()
                 .baseURL('http://jsonplaceholder.typicode.com/posts/1/comments')
@@ -71,7 +71,7 @@ describe('Basics', function () {
                 .baseURL('http://jsonplaceholder.typicode.com')
                 .url('/posts/1/comments')
                 .method('get')
-                .get() // => Promise 
+                .get() // => Promise
                 .then(res => done())
                 .catch(err => done(err))
         });
@@ -90,6 +90,24 @@ describe('Basics', function () {
         });
     });
 
+    describe('#log', function () {
+        it('.log(options)', function (done) {
+            faxios()
+                .baseURL('http://jsonplaceholder.typicode.com')
+                .url('posts')
+                .param('name', 'wassim')
+                .param('fname', 'lsabbagh')
+                .param('bd', '1991')
+                .Authorization('testing')
+                .header('language','en')
+                .method('get')
+                .log(true)
+                .request() // => Promise
+                .then(res => done())
+                .catch(err => done(err))
+        });
+    });
+
     describe('#header', function () {
         it('.header(key, value)', function (done) {
             faxios()
@@ -98,6 +116,18 @@ describe('Basics', function () {
                 .method('get')
                 .param('postId', 1)
                 .header('Authorization', 'your_token')
+                .request() // => Promise
+
+                .then(res => done())
+                .catch(err => done(err))
+        });
+        it('.headers aliases', function (done) {
+            faxios()
+                .baseURL('http://jsonplaceholder.typicode.com')
+                .url('posts')
+                .method('get')
+                .param('postId', 1)
+                .Authorization('your_token')
                 .request() // => Promise
 
                 .then(res => done())
@@ -141,7 +171,7 @@ describe('Basics', function () {
 
     describe('#use', function () {
         it('.use(middleware)', function (done) {
-            
+
             // base middleware
             let base = fax => fax
                 .baseURL('http://jsonplaceholder.typicode.com')
@@ -157,5 +187,5 @@ describe('Basics', function () {
                 .catch(err => done(err))
         });
     });
-    
+
 });
