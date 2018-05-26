@@ -21,6 +21,13 @@ function clear(key, value) {
 }
 
 function url(...params) {
+  let _ = params[0]
+  let url = this.configuration.url
+  if (params.length == 1 && typeof _ == 'object' && typeof url == 'string') {
+    let keys = Object.keys(_)
+    keys.forEach(key => this.configuration.url = url.replace(key, _[key]))
+    return this
+  }
   set.call(this, 'url', joinUrl(this.configuration.url, ...params))
   return this
 }
@@ -49,6 +56,23 @@ function add(target, ...params) {
   }
   return this
 }
+
+function append(...params) {
+  if (!(this.configuration.data instanceof URLSearchParams)) {
+    this.configuration.data = new URLSearchParams()
+  }
+
+  let _ = params[0]
+  if (params.length == 1 && typeof _ == 'object') {
+    let keys = Object.keys(_)
+    keys.forEach(key => this.configuration.data.append(key, _[key]))
+    return this
+  }
+  let [key, value] = params
+  this.configuration.data.append(key, value)
+  return this
+}
+
 function key(...params) {
   if (params.length == 1 && typeof params[0] == 'function') {
     this.key = params[0](this.configuration)
@@ -84,17 +108,24 @@ function build(builder) {
   return this
 }
 
+function cancel(message) {
+  this.configuration.cancel(message)
+  return this
+}
+
 
 const _ = {
   url,
   set,
   clear,
   add,
+  append,
   push,
   use,
   build,
   alias,
   key,
+  cancel,
 
   request: function (config) {
     return fetch(this, 'request', undefined, config)
@@ -161,7 +192,7 @@ const _ = {
     return fetch(this, 'patch')
   },
 
-  then: function(...params) {
+  then: function (...params) {
     return fetch(this).then(...params)
   },
 

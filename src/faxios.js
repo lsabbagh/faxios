@@ -1,15 +1,28 @@
 const fetch = require('./fetch')
 const types = require('./types')
 const joinUrl = require('proper-url-join')
+const axios = require('axios')
+
 
 const __prototype = require('./__prototype')
 
 const faxios = (() => (url) => {
-  let _instance = {}
 
+  let {
+    token: cancelToken,
+    cancel
+  } = axios.CancelToken.source()
+  let time = new Date().getTime()
+
+  let _instance = {}
   let __config_proto = {
     listeners: {},
-    configuration: {}
+    configuration: {
+      cancelToken,
+      cancel,
+      time
+    }
+
   }
 
   __config_proto.__proto__ = __prototype;
