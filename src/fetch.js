@@ -9,7 +9,7 @@ const fetch = (_, method = 'get', url = '', _config = {}, data) => {
   if (data) config.data = data
 
   let info = { key, ...config, loading: true}
-  notify(_.listeners, info, 'before', 'info')
+  notify(_.listeners, info, 'before', 'change', 'info')
 
   return axios
     .request(config)
