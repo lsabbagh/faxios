@@ -62,57 +62,12 @@ faxios()
   key2: 'value2',
   key3: 'value3'
 })
-
-// =>  params = {
-//          postId: 1,
-//          key1: value1,
-//          key2: value2,
-//          key3: value3,
-//        }
+.param(URLSearchParams) // use URLSearchParams instance instead of plain object
 
 .GET // -> Promise
 .then(res => {})
 .catch(err => {});
 ```
-
-`more with param`
-```js
-faxios()
-.baseURL("http://jsonplaceholder.typicode.com")
-.url("/posts")
-.param("postId", 1)
-
-.param(URLSearchParams) // <--- notice this...
-
-.param("key0", "value0")
-.param({
-  key1: 'value1',
-  key2: 'value2',
-  key3: 'value3'
-})
-.param({
-  key4: 'value4',
-})
-.param("key5", "value5")
-// ...
-// ...
-
-// =>  param = URLSearchParams {}
-//     [...param.entries()]
-//        [
-//          [ "key0": "value0",
-//          [ "key1": "value1",
-//          [ "key2": "value2",
-//          [ "key3": "value3",
-//          [ "key4": "value4",
-//          [ "key5": "value5",
-//        ]
-
-.POST // => Promise
-.then(res => {})
-.catch(err => {});
-
-  ```
 
   `header`
 
@@ -136,6 +91,8 @@ faxios()
     .url("/posts")
     .param("postId", 1)
 
+    .data(FormData) // <--- notice this...
+
     .data("key0", "value0")
     .data({
       key1: 'value1',
@@ -146,64 +103,11 @@ faxios()
       key4: 'value4',
     })
     .data("key5", "value5")
-    // ...
-    // ...
-
-    // =>  data = {
-    //          key0: value0,
-    //          key1: value1,
-    //          key2: value2,
-    //          key3: value3,
-    //          key4: value4,
-    //          key5: value5,
-    //        }
 
     .POST // => Promise
     .then(res => {})
     .catch(err => {});
   ```
-
-  `more with data`
-  ```js
-
-    faxios()
-    .baseURL("http://jsonplaceholder.typicode.com")
-    .url("/posts")
-    .param("postId", 1)
-
-    .data(FormData) // <--- notice this...
-    // or
-    .data(URLSearchParams)
-
-    .data("key0", "value0")
-    .data({
-      key1: 'value1',
-      key2: 'value2',
-      key3: 'value3'
-    })
-    .data({
-      key4: 'value4',
-    })
-    .data("key5", "value5")
-    // ...
-    // ...
-
-    // =>  data = FormData {} // or data = URLSearchParams {}
-    //     [...data.entries()]
-    //        [
-    //          [ "key0": "value0",
-    //          [ "key1": "value1",
-    //          [ "key2": "value2",
-    //          [ "key3": "value3",
-    //          [ "key4": "value4",
-    //          [ "key5": "value5",
-    //        ]
-
-    .POST // => Promise
-    .then(res => {})
-    .catch(err => {});
-
-```
 
 `method`
 
