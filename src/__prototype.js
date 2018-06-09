@@ -1,262 +1,96 @@
-const _on = require('./__prototype_on')
-
-const fetch = require('./fetch')
-const types = require('./types')
 const joinUrl = require('proper-url-join')
-const middlewares = require('./middlewares')
+
 const builders = require('./builders')
 
-function set(key, value) {
-  if (types.any.includes(key)) {
-    this.configuration[key] = value
-  }
-  return this
-}
+const plainObject = require('./plain-object')
 
-function clear(key, value) {
-  if (types.any.includes(key)) {
-    delete this.configuration[key]
-  }
-  return this
-}
-
-function url(...params) {
-  let _ = params[0]
-  let url = this.configuration.url
-  if (params.length == 1 && typeof _ == 'object' && typeof url == 'string') {
-    let keys = Object.keys(_)
-    keys.forEach(key => this.configuration.url = url.replace(key, _[key]))
-    return this
-  }
-  set.call(this, 'url', joinUrl(this.configuration.url, ...params))
-  return this
-}
-
-function push(key, value) {
-  if (types.array.includes(key) && typeof value == 'function') {
-    if (!this.configuration[key]) this.configuration[key] = []
-    this.configuration[key].push(value)
-  }
-  return this
-}
-
-function add(target, ...params) {
-  if (types.object.includes(target)) {
-    if (!this.configuration[target]) this.configuration[target] = {}
-    if (params.length == 2) {
-      let [key, value] = params
-      this.configuration[target][key] = value
-    } else if (params.length == 1) {
-      let [_params] = params
-      this.configuration[target] = {
-        ...this.configuration[target],
-        ..._params
-      }
-    }
-  }
-  return this
-}
-
-function append(...params) {
-  if (!(this.configuration.data instanceof URLSearchParams)) {
-    this.configuration.data = new URLSearchParams()
-  }
-
-  let _ = params[0]
-  if (params.length == 1 && typeof _ == 'object') {
-    let keys = Object.keys(_)
-    keys.forEach(key => this.configuration.data.append(key, _[key]))
-    return this
-  }
-  let [key, value] = params
-  this.configuration.data.append(key, value)
-  return this
-}
-
-function key(...params) {
-  if (params.length == 1 && typeof params[0] == 'function') {
-    this.key = params[0](this.configuration)
-  } else {
-    this.key = params.join('')
-  }
-  return this
-}
-
-function alias(type, name, key) {
-  if (!this[name] && this[type]) {
-    this[name] = value => {
-      this[type](key || name, value)
-      return this
-    }
-  }
-  return this
-}
-
-function use(middleware) {
-  if (typeof middleware == 'function')
-    middleware(this)
-  else if (middlewares[middleware])
-    middlewares[middleware](this)
-  return this
-}
-
-function build(builder) {
-  if (typeof builder == 'function')
-    builder(this)
-  else if (builders[builder])
-    builders[builder](this)
-  return this
-}
-
-function cancel(message) {
-  this.configuration.cancel(message)
-  return this
-}
+const set = require('./set')
+const add = require('./add')
+const param = require('./param')
+const data = require('./data')
+const fetch = require('./fetch')
+const on = require('./on')
+const key = require('./key')
+const alias = require('./alias')
+const cancel = require('./cancel')
+const clear = require('./clear')
+const url = require('./url')
+const push = require('./push')
+const build = require('./build')
 
 
-const _ = {
-  url,
-  set,
-  clear,
-  add,
-  append,
-  push,
-  use,
-  build,
-  alias,
-  key,
-  cancel,
+module.exports = {
+  url, set, clear, add, push, build, alias, key, cancel, on, param, data,
 
-  request: function (config) {
-    return fetch(this, 'request', undefined, config)
-  },
+  request: function (config) { return fetch(this, 'request', undefined, config) },
 
-  get FETCH() {
-    return fetch(this)
-  },
+  get FETCH() { return fetch(this) },
 
 
-  get: function (url, config) {
-    return fetch(this, 'get', url, config)
-  },
-  get GET() {
-    return fetch(this, 'get')
-  },
+  get: function (url, config) { return fetch(this, 'get', url, config) },
+  get GET() { return fetch(this, 'get') },
 
 
-  delete: function (url, config) {
-    return fetch(this, 'delete', url, config)
-  },
-  get DELETE() {
-    return fetch(this, 'delete')
-  },
+  delete: function (url, config) { return fetch(this, 'delete', url, config) },
+  get DELETE() { return fetch(this, 'delete') },
 
 
-  head: function (url, config) {
-    return fetch(this, 'head', url, config)
-  },
-  get HEAD() {
-    return fetch(this, 'head')
-  },
+  head: function (url, config) { return fetch(this, 'head', url, config) },
+  get HEAD() { return fetch(this, 'head') },
 
 
 
-  options: function (url, config) {
-    return fetch(this, 'options', url, config)
-  },
-  get OPTIONS() {
-    return fetch(this, 'options')
-  },
+  options: function (url, config) { return fetch(this, 'options', url, config) },
+  get OPTIONS() { return fetch(this, 'options') },
 
 
-  post: function (url, data, config) {
-    return fetch(this, 'post', url, config, data)
-  },
-  get POST() {
-    return fetch(this, 'post')
-  },
+  post: function (url, data, config) { return fetch(this, 'post', url, config, data) },
+  get POST() { return fetch(this, 'post') },
 
 
-  put: function (url, data, config) {
-    return fetch(this, 'put', url, config, data)
-  },
-  get PUT() {
-    return fetch(this, 'put')
-  },
+  put: function (url, data, config) { return fetch(this, 'put', url, config, data) },
+  get PUT() { return fetch(this, 'put') },
 
 
-  patch: function (url, data, config) {
-    return fetch(this, 'patch', url, config, data)
-  },
-  get PATCH() {
-    return fetch(this, 'patch')
-  },
+  patch: function (url, data, config) { return fetch(this, 'patch', url, config, data) },
+  get PATCH() { return fetch(this, 'patch') },
 
-  then: function (...params) {
-    return fetch(this).then(...params)
-  },
+  then: function (...args) { return fetch(this).then(...args) },
 
+  method: function (method) { return set.call(this, 'method', method) },
 
-  method: function (method) {
-    return set.call(this, 'method', method)
-  },
+  baseURL: function (baseURL) { return set.call(this, 'baseURL', baseURL) },
 
-  baseURL: function (baseURL) {
-    return set.call(this, 'baseURL', baseURL)
-  },
+  header: function (...args) { return add.call(this, 'headers', ...args) },
 
-  header: function (...params) {
-    return add.call(this, 'headers', ...params)
-  },
+  // @TODO: note tested...
+  wait: function (...args) { return set.call(this, 'wait', ...args) },
 
-  param: function (...params) {
-    return add.call(this, 'params', ...params)
-  },
+  // @TODO: @NOTE: not tested...
+  debounce: function (...args) { return set.call(this, 'debounce', ...args) },
 
-  data: function (...params) {
-    return add.call(this, 'data', ...params)
-  },
+  log: function (options) { return set.call(this, 'log', options) },
+  get LOG() { return set.call(this, 'log', true) },
 
-  log: function (options) {
-    return set.call(this, 'log', options)
-  },
+  responseType(type) { return set.call(this, 'responseType', type) },
 
-  get LOG() {
-    return set.call(this, 'log', true)
-  },
+  Authorization(token) { return add.call(this, 'headers', 'Authorization', token) },
+  ContentType(type) { return add.call(this, 'headers', 'Content-Type', type) },
+  Accept(type) { return add.call(this, 'headers', 'Accept', type) },
 
 
-  get ARRAYBUFFER() {
-    return set.call(this, 'responseType', 'arraybuffer')
-  },
-  get BLOB() {
-    return set.call(this, 'responseType', 'blob')
-  },
-  get DOCUMENT() {
-    return set.call(this, 'responseType', 'document')
-  },
-  get JSON() {
-    return set.call(this, 'responseType', 'json')
-  },
-  get TEXT() {
-    return set.call(this, 'responseType', 'text')
-  },
-  get STREAM() {
-    return set.call(this, 'responseType', 'stream')
-  },
+
+  onBefore: function (_listener) { return on.call(this, 'before', _listener) },
+  onChange: function (_listener) { return on.call(this, 'change', _listener) },
+  onSuccess: function (_listener) { return on.call(this, 'success', _listener) },
+  onError: function (_listener) { return on.call(this, 'error', _listener) },
+  onComplete: function (_listener) { return on.call(this, 'complete', _listener) },
 
 
-  Authorization(token) {
-    return add.call(this, 'headers', 'Authorization', token)
-  },
-  ContentType(type) {
-    return add.call(this, 'headers', 'Content-Type', type)
-  },
-  Accept(type) {
-    return add.call(this, 'headers', 'Accept', type)
-  },
+  onInformational: function (_listener) { return on.call(this, '1[0-9][0-9]', _listener) },
+  onSuccess: function (_listener) { return on.call(this, '2[0-9][0-9]', _listener) },
+  onRedirectional: function (_listener) { return on.call(this, '3[0-9][0-9]', _listener) },
+  onClientError: function (_listener) { return on.call(this, '4[0-9][0-9]', _listener) },
+  onServerError: function (_listener) { return on.call(this, '5[0-9][0-9]', _listener) }
 
 }
-
-_.__proto__ = _on
-module.exports = _

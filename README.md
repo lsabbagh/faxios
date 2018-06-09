@@ -18,7 +18,20 @@ faxios("https://jsonplaceholder.typicode.com/posts/1/comments")
 
 ```js
 faxios()
-  .url("http://jsonplaceholder.typicode.com/posts/1/comments")
+  .url('http://jsonplaceholder.typicode.com/posts/1/comment')
+
+
+  .url('http://jsonplaceholder.typicode.com/','posts',1,'comment')
+
+
+  .url('http://jsonplaceholder.typicode.com/posts/:id/comment')
+  .url({':id': 1})
+
+
+  .url('http://jsonplaceholder.typicode.com')
+  .url('posts')
+  .url(1)
+  .url('comment')
 
   .GET // -> Promise
   .then(res => {})
@@ -41,36 +54,70 @@ faxios()
 
 ```js
 faxios()
-  .baseURL("http://placeholder.typicode.com")
-  .url("posts")
-  .param("postId", 1)
+.baseURL("http://placeholder.typicode.com")
+.url("posts")
+.param("postId", 1)
+.param({
+  key1: 'value1',
+  key2: 'value2',
+  key3: 'value3'
+})
 
-  .GET // -> Promise
-  .then(res => {})
-  .catch(err => {});
+// =>  params = {
+//          key0: value0,
+//          key1: value1,
+//          key2: value2,
+//          key3: value3,
+//        }
+
+.GET // -> Promise
+.then(res => {})
+.catch(err => {});
 ```
 
-`append`
-
+`more with param`
 ```js
 faxios()
-  .baseURL("http://placeholder.typicode.com")
-  .url("posts")
-  .append("postId", 1) // set('data', new URLSearchParams()); then data.append('postId', 1)
-  .append({
-    key1: value1,
-    key2: value2,
-    }) // set('data', new URLSearchParams()); then data.append('postId', 1)
+.baseURL("http://jsonplaceholder.typicode.com")
+.url("/posts")
+.param("postId", 1)
 
-  .GET // -> Promise
-  .then(res => {})
-  .catch(err => {});
-```
+.param(URLSearchParams) // <--- notice this...
 
-`header`
+.param("key0", "value0")
+.param({
+  key1: 'value1',
+  key2: 'value2',
+  key3: 'value3'
+})
+.param({
+  key4: 'value4',
+})
+.param("key5", "value5")
+// ...
+// ...
+
+// =>  param = URLSearchParams {}
+//     [...param.entries()]
+//        [
+//          [ "key0": "value0",
+//          [ "key1": "value1",
+//          [ "key2": "value2",
+//          [ "key3": "value3",
+//          [ "key4": "value4",
+//          [ "key5": "value5",
+//        ]
+
+.POST // => Promise
+.then(res => {})
+.catch(err => {});
+
+  ```
+
+  `header`
 
 ```js
-faxios()
+  faxios()
   .baseURL("http://jsonplaceholder.typicode.com")
   .url("posts")
   .param("postId", 1)
@@ -84,58 +131,120 @@ faxios()
 `data`
 
 ```js
-faxios()
-  .baseURL("http://jsonplaceholder.typicode.com")
-  .url("/posts")
-  .header("Authorization", "f8dc3ee4224987fbc3498234")
-  .param("postId", 1)
-  .data("key", "value")
+    faxios()
+    .baseURL("http://jsonplaceholder.typicode.com")
+    .url("/posts")
+    .param("postId", 1)
 
-  .POST // => Promise
-  .then(res => {})
-  .catch(err => {});
+    .data("key0", "value0")
+    .data({
+      key1: 'value1',
+      key2: 'value2',
+      key3: 'value3'
+    })
+    .data({
+      key4: 'value4',
+    })
+    .data("key5", "value5")
+    // ...
+    // ...
+
+    // =>  data = {
+    //          key0: value0,
+    //          key1: value1,
+    //          key2: value2,
+    //          key3: value3,
+    //          key4: value4,
+    //          key5: value5,
+    //        }
+
+    .POST // => Promise
+    .then(res => {})
+    .catch(err => {});
+  ```
+
+  `more with data`
+  ```js
+
+    faxios()
+    .baseURL("http://jsonplaceholder.typicode.com")
+    .url("/posts")
+    .param("postId", 1)
+
+    .data(FormData) // <--- notice this...
+    // or
+    .data(URLSearchParams)
+
+    .data("key0", "value0")
+    .data({
+      key1: 'value1',
+      key2: 'value2',
+      key3: 'value3'
+    })
+    .data({
+      key4: 'value4',
+    })
+    .data("key5", "value5")
+    // ...
+    // ...
+
+    // =>  data = FormData {} // or data = URLSearchParams {}
+    //     [...data.entries()]
+    //        [
+    //          [ "key0": "value0",
+    //          [ "key1": "value1",
+    //          [ "key2": "value2",
+    //          [ "key3": "value3",
+    //          [ "key4": "value4",
+    //          [ "key5": "value5",
+    //        ]
+
+    .POST // => Promise
+    .then(res => {})
+    .catch(err => {});
+
 ```
 
 `method`
 
 ```js
 faxios()
-  .baseURL("http://jsonplaceholder.typicode.com")
-  .url("posts", 1, "comments")
+.baseURL("http://jsonplaceholder.typicode.com")
+.url("posts", 1, "comments")
 
-  // get, post, put, delete, head, options, patch, fetch, request
-  .method("get")
+// get, post, put, delete, head, options, patch, fetch, request
+.method("get")
 
-  .FETCH // => Promise
-  .then(res => {})
-  .catch(err => {});
+.FETCH // => Promise
+.then(res => {})
+.catch(err => {});
 ```
 
-`cancel`
+  `cancel`
 
 ```js
-// building..
+  // building..
 let req = faxios()
   .baseURL("http://jsonplaceholder.typicode.com")
   .url("posts", 1, "comments")
 
-// fetching..
-req // => 
+  // fetching..
+  req // =>
   .FETCH // => Promise
   .then(res => {})
   .catch(err => {});
 
-// canceling...
-req.cancel();
+  // canceling...
+  req.cancel();
 ```
 
 `alias`
 
 ```js
-faxios()
+  faxios()
   .baseURL("http://jsonplaceholder.typicode.com")
-  .alias("param", "postId") // <-- setting the alias
-  .postId(1)
+  .alias("param", "id", "postId") // <-- setting the alias
+  .id(1)
 
   .FETCH // => Promise
   .then(res => {})
@@ -145,88 +254,66 @@ faxios()
 `use a builder`
 
 ```js
-let base_builder = fax => {
-  fax
+  let base_builder = fax => fax
     .baseURL("http://jsonplaceholder.typicode.com")
     .header("Content-Type", "text/html");
-};
 
-faxios()
-  .use(base_builder)
-  .url("/posts")
+    faxios()
+    .use(base_builder)
+    .url("/posts")
 
-  .FETCH // => Promise
-  .then(res => {})
-  .catch(err => {})
+    .FETCH // => Promise
+    .then(res => {})
+    .catch(err => {})
 ```
 
 `add a builder and use it`
 
 ```js
-faxios.builders.add("buider_name", fax =>
-  fax
-    .baseURL("http://jsonplaceholder.typicode.com")
-    .header("Content-Type", "text/html")
+faxios.builders.add("buider_name", fax => fax
+.baseURL("http://jsonplaceholder.typicode.com")
+.header("Content-Type", "text/html")
 );
 
 faxios()
-  .use("builder_name")
-  .url("/posts")
+.use("builder_name")
+.url("/posts")
 
-  .FETCH // => Promise
-  .then(res => {})
-  .catch(err => {});
-```
-
-`replace in url`
-
-```js
-faxios.builders.add("buider_name", fax =>
-  fax
-    .baseURL("http://jsonplaceholder.typicode.com")
-    .header("Content-Type", "text/html")
-    .url("users/:id/profile")
-);
-
-faxios()
-  .use("builder_name")
-  .url({ ":id": 1 })
-
-  .FETCH // => Promise
-  .then(res => {})
-  .catch(err => {});
+.FETCH // => Promise
+.then(res => {})
+.catch(err => {});
 ```
 
 `listeners`
+```js
+let l = console.log
 
-````js
-faxios()
-.use(base)
-.postId(1)
-.data('key1', 'value1')
+  faxios()
+  .use(base)
+  .postId(1)
+  .data('key1', 'value1')
 
-.before(config => console.log('before sending', config))
-.success(config => console.log('only on success', config)) //200
-.error(config => console.log('only on error ', config))
-.complete(config => console.log('on success and error', config))
-.change(config => console.log('before and complete', config))
+  .onBefore(config => l('before sending', config))
+  .onSuccess(config => l('only on success', config)) //200
+  .onError(config => l('only on error ', config))
+  .onComplete(config => l('on success and error', config))
+  .onChange(config => l('before and complete', config))
 
-.onInformational(() => console.log('onInformational, response status matches 1[0-9][0-9]'))
-.onSuccess(() => console.log('onSuccess, response status matches 2[0-9][0-9]'))
-.onRedirectional(() => console.log('onRedirectional, response status matches 5[0-9][0-9]'))
-.onClientError(() => console.log('onClientError, response status matches 4[0-9][0-9]'))
-.onServerError(() => console.log('onServerError, response status matches 5[0-9][0-9]'))
+  .onInformational((config) => l('onInformational, response status matches 1[0-9][0-9]'))
+  .onSuccess((config) => l('onSuccess, response status matches 2[0-9][0-9]'))
+  .onRedirectional((config) => l('onRedirectional, response status matches 5[0-9][0-9]'))
+  .onClientError((config) => l('onClientError, response status matches 4[0-9][0-9]'))
+  .onServerError((config) => l('onServerError, response status matches 5[0-9][0-9]'))
 
-// regex
-.on(200, () => console.log('on response status is 200'))
-.on(404,  () => console.log('on response status is 404'))
-.on(/200|400/, () => console.log('on status 200 or 400'))
-.on(new RegExp('200|400'), () => console.log('on status 200 or 400'))
-.on('2.*', () => console.log('on response status matches the regex 2.*'))
+  // regex
+  .on(200, () => console.log('on response status is 200'))
+  .on(404,  () => console.log('on response status is 404'))
+  .on(/200|400/, () => console.log('on status 200 or 400'))
+  .on(new RegExp('200|400'), () => console.log('on status 200 or 400'))
+  .on('2.*', () => console.log('on response status matches the regex 2.*'))
 
 
-.FETCH
-.then(res => {})
-.catch(err => {})
-  ```
-````
+  .FETCH
+  .then(res => {})
+  .catch(err => {})
+```

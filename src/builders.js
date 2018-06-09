@@ -1,5 +1,6 @@
 module.exports = {
-  add: function(name, builder){
+  _builders : {},
+  add(name, builder){
 
     // @TODO: invalid params
     if(typeof name != 'string' ||  typeof builder !== 'function')  return
@@ -7,10 +8,16 @@ module.exports = {
     // @TODO: name exist
     //   this[name]
 
-    this[name] = builder
+    this._builders[name] = builder
   },
 
-  build: function(instance, name) {
-    if(this[name]) instance.use(this[name])
+  get get() {
+      return this._builders
+  },
+
+  build(instance, name) {
+    if(this._builders[name]) {
+      instance.use(this._builders[name])
+    }
   }
 }
