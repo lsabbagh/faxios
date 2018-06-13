@@ -3,7 +3,7 @@ const append = require('./append')
 const set = require('./set')
 const add = require('./add')
 
-module.exports = function(target, _class, ...args) {
+const addOrAppend = function(target, _class, ...args) {
 
   let currentValue = this.configuration[target] || {}
 
@@ -13,7 +13,9 @@ module.exports = function(target, _class, ...args) {
 
     if (input == _class) { value = append(_class, currentValue) }
 
-    if (typeof input == 'string' || input instanceof _class || currentValue instanceof _class) {
+    if (typeof input == 'string'
+     || input instanceof _class
+     || currentValue instanceof _class) {
       value = append(_class, currentValue, input)
     }
 
@@ -28,8 +30,16 @@ module.exports = function(target, _class, ...args) {
 
   if (args.length > 1) {
     let [key, value] = args
-    if (currentValue instanceof URLSearchParams) {
-      currentValue.append(key, value)
+    if (currentValue instanceof URLSearchParams
+       || currentValue instanceof FormData) {
+      if(Array.isArray(value)) {
+        let _key = key + '[]'
+        value.forEach(_ => {
+          addOrAppend.call(this, target, _class, _key, _)
+        })
+      } else {
+        currentValue.append(key, value)
+      }
       return this
     }
 
@@ -37,3 +47,6 @@ module.exports = function(target, _class, ...args) {
   }
   return this
 }
+
+
+module.exports = addOrAppend

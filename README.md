@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/faxios.svg?style=flat-square)](http://npm-stat.com/charts.html?package=faxios)
 [![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/lsabbagh/faxios)
 
-HTTP client the browser and node.js
+HTTP client for the browser and node.js
 
 ```js
 faxios("https://jsonplaceholder.typicode.com/posts/1/comments")
@@ -103,6 +103,8 @@ faxios()
       key4: 'value4',
     })
     .data("key5", "value5")
+
+    .data('hello', [1,2,3) // hello[] = 1, hello[] = 2, hello[]=3
 
     .POST // => Promise
     .then(res => {})
