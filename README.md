@@ -4,30 +4,46 @@
 [![npm downloads](https://img.shields.io/npm/dm/faxios.svg?style=flat-square)](http://npm-stat.com/charts.html?package=faxios)
 [![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/lsabbagh/faxios)
 
-HTTP client for the browser and node.js
+Simple and advanced HTTP client for the browser and node.js
+
+## Installing
+
+```bash
+# npm:
+$ npm i faxios
+
+# cdn:
+<script src="https://unpkg.com/fxios/dist/faxios.min.js"></script>
+```
+
+## Usage
 
 ```js
-faxios("https://jsonplaceholder.typicode.com/posts/1/comments")
+faxios()
+  .url("https://jsonplaceholder.typicode.com/posts/1/comments")
 
   .GET // -> Promise
   .then(res => {})
   .catch(err => {})
 ```
 
-`url`
+### url
 
 ```js
 faxios()
   .url('http://jsonplaceholder.typicode.com/posts/1/comment')
 
 
+  // smart joining url
   .url('http://jsonplaceholder.typicode.com/','posts',1,'comment')
 
 
+  // replacing object keys by values
   .url('http://jsonplaceholder.typicode.com/posts/:id/comment')
   .url({':id': 1})
 
 
+  // appending url, useful with builders
   .url('http://jsonplaceholder.typicode.com')
   .url('posts')
   .url(1)
@@ -38,8 +54,7 @@ faxios()
   .catch(err => {});
 ```
 
-`baseURL`
-
+### baseURL
 ```js
 faxios()
   .baseURL("http://jsonplaceholder.typicode.com")
@@ -50,8 +65,21 @@ faxios()
   .catch(err => {});
 ```
 
-`param`
+### header
+```js
+  faxios()
+  .baseURL("http://jsonplaceholder.typicode.com")
+  .url("posts")
+  .param("postId", 1)
+  .header("Authorization", "your_token")
 
+  .GET // => Promise
+  .then(res => {})
+  .catch(err => {});
+```
+
+
+### param
 ```js
 faxios()
 .baseURL("http://placeholder.typicode.com")
@@ -69,22 +97,7 @@ faxios()
 .catch(err => {});
 ```
 
-  `header`
-
-```js
-  faxios()
-  .baseURL("http://jsonplaceholder.typicode.com")
-  .url("posts")
-  .param("postId", 1)
-  .header("Authorization", "your_token")
-
-  .GET // => Promise
-  .then(res => {})
-  .catch(err => {});
-```
-
-`data`
-
+### data
 ```js
     faxios()
     .baseURL("http://jsonplaceholder.typicode.com")
@@ -104,15 +117,14 @@ faxios()
     })
     .data("key5", "value5")
 
-    .data('hello', [1,2,3) // hello[] = 1, hello[] = 2, hello[]=3
+    .data('hello', [1,2,3]) // hello[] = 1, hello[] = 2, hello[]=3
 
     .POST // => Promise
     .then(res => {})
     .catch(err => {});
   ```
 
-`method`
-
+### method
 ```js
 faxios()
 .baseURL("http://jsonplaceholder.typicode.com")
@@ -126,8 +138,7 @@ faxios()
 .catch(err => {});
 ```
 
-  `cancel`
-
+### cancel
 ```js
   // building..
 let req = faxios()
@@ -144,7 +155,7 @@ let req = faxios()
   req.cancel();
 ```
 
-`alias`
+### alias
 
 ```js
   faxios()
@@ -157,8 +168,7 @@ let req = faxios()
   .catch(err => {});
 ```
 
-`use a builder`
-
+### use
 ```js
   let base_builder = fax => fax
     .baseURL("http://jsonplaceholder.typicode.com")
@@ -173,8 +183,7 @@ let req = faxios()
     .catch(err => {})
 ```
 
-`add a builder and use it`
-
+### builder.add use
 ```js
 faxios.builders.add("buider_name", fax => fax
 .baseURL("http://jsonplaceholder.typicode.com")
@@ -190,7 +199,7 @@ faxios()
 .catch(err => {});
 ```
 
-`listeners`
+### listeners
 ```js
 let l = console.log
 
