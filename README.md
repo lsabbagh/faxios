@@ -226,7 +226,7 @@ faxios()
 .catch(err => {});
   ```
 
-  ### use
+### use
   ```js
   let base_builder = fax => fax
   .baseURL('http://jsonplaceholder.typicode.com')
@@ -255,7 +255,7 @@ faxios()
   .FETCH // => Promise
   .then(res => {})
   .catch(err => {});
-    ```
+```
 
 ### listeners
 ```js
