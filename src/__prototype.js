@@ -17,10 +17,11 @@ const clear = require('./clear')
 const url = require('./url')
 const push = require('./push')
 const build = require('./build')
+const debounce = require('./debounce')
 
 
 module.exports = {
-  url, set, clear, add, push, build, alias, key, cancel, on, param, data,
+  url, set, clear, add, push, build, alias, key, cancel, on, param, data, debounce,
 
   request: function (config) { return fetch(this, 'request', undefined, config) },
 
@@ -63,11 +64,7 @@ module.exports = {
 
   header: function (...args) { return add.call(this, 'headers', ...args) },
 
-  // @TODO: note tested...
-  wait: function (...args) { return set.call(this, 'wait', ...args) },
-
-  // @TODO: @NOTE: not tested...
-  debounce: function (...args) { return set.call(this, 'debounce', ...args) },
+  delay: function (...args) { return set.call(this, 'delay', ...args) },
 
   log: function (options) { return set.call(this, 'log', options) },
   get LOG() { return set.call(this, 'log', true) },
