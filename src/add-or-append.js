@@ -22,6 +22,9 @@ const addOrAppend = function(target, _class, ...args) {
     if (value) {
       set.call(this, target, value)
     } else if (plainObject(input, currentValue)) {
+      if(!this.configuration[target]) {
+        this.configuration[target] = {}
+      }
       Object.assign(this.configuration[target], input)
     }
 

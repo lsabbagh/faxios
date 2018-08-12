@@ -1,3 +1,5 @@
+const builders = require('./builders')
+
 module.exports = function(builder) {
   if (typeof builder == 'function') {
     builder(this)
@@ -5,8 +7,6 @@ module.exports = function(builder) {
   }
 
   let name = builder
-  if (builders.get[name]) {
-    builders.get[name](this)
-  }
+  builders.build(this, builder)
   return this
 }

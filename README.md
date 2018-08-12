@@ -226,14 +226,14 @@ faxios()
 .catch(err => {});
   ```
 
-### use
+### build
   ```js
   let base_builder = fax => fax
   .baseURL('http://jsonplaceholder.typicode.com')
   .header('Content-Type', 'text/html');
 
   faxios()
-  .use(base_builder)
+  .build(base_builder)
   .url('/posts')
 
   .FETCH // => Promise
@@ -241,7 +241,7 @@ faxios()
   .catch(err => {})
 ```
 
-### builder.add use
+### builder.add build
 ```js
   faxios.builders.add('buider_name', fax => fax
     .baseURL('http://jsonplaceholder.typicode.com')
@@ -249,7 +249,7 @@ faxios()
   );
 
   faxios()
-  .use('builder_name')
+  .build('builder_name')
   .url('/posts')
 
   .FETCH // => Promise
@@ -262,7 +262,7 @@ faxios()
     let l = console.log
 
     faxios()
-    .use(base)
+    .build(base)
     .postId(1)
     .data('key1', 'value1')
 
