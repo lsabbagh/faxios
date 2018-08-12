@@ -241,7 +241,7 @@ faxios()
   .catch(err => {})
 ```
 
-### builder.add build
+### builders.add build
 ```js
   faxios.builders.add('buider_name', fax => fax
     .baseURL('http://jsonplaceholder.typicode.com')
