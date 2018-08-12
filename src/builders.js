@@ -17,7 +17,7 @@ module.exports = {
 
   build(instance, name) {
     if(this._builders[name]) {
-      instance.use(this._builders[name])
+      instance.build(this._builders[name])
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Simple and advanced HTTP client for the browser and node.js",
@@ -12,7 +12,8 @@
     "test": "mocha test/basics.js test/listeners.js",
     "test:basics": "mocha test/basics.js",
     "test:listeners": "mocha test/listeners.js",
-    "test:fresh": "npm run build && mocha test/basics.js test/listeners.js"
+    "test:fresh": "npm run build && mocha test/basics.js test/listeners.js",
+    "release": "npm run web && git push origin master && npm publish"
   },
   "repository": {
     "type": "git",
