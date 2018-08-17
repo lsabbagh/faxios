@@ -7,9 +7,9 @@ module.exports = function(...args) {
     if(!plainObject(input)) {
       set.call(this, 'url', joinUrl(this.configuration.url, input))
     } else {
-      for(key in input) {
+      for(let key in input) {
         let {url = ''} = this.configuration
-        set.call(this, 'url', url.replace(key, _[key]))
+        set.call(this, 'url', url.replace(key, input[key]))
       }
     }
   })
