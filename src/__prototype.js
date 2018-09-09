@@ -19,9 +19,17 @@ const push = require('./push')
 const build = require('./build')
 const debounce = require('./debounce')
 
+// shorthands
+const p = param
+const d = data
+const f = fetch
+const u = url
+const b = build
+
 
 module.exports = {
   url, set, clear, add, push, build, alias, key, cancel, on, param, data, debounce,
+  p, d, f, u, b,
 
   request: function (config) { return fetch(this, 'request', undefined, config) },
 
