@@ -4,7 +4,7 @@ module.exports = {
     switch(params.length) {
       case 1:
       let [_obj] = params
-      if(typeof _ojb == 'object') {
+      if(typeof _obj == 'object') {
         for(let name in _obj) {
           addBuilder(this._builders, name, _obj[name])
         }
