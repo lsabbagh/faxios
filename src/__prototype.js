@@ -2,8 +2,6 @@ const joinUrl = require('proper-url-join')
 
 const builders = require('./builders')
 
-const plainObject = require('./plain-object')
-
 const set = require('./set')
 const add = require('./add')
 const param = require('./param')
