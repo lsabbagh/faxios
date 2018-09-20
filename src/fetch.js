@@ -1,35 +1,51 @@
 const axios = require('axios')
 
-const fetch = (_, method = 'get', url = '', _config = {}, data) => {
-  let config = { url, ..._.configuration, ..._config }
+const log = require('./log')
+const notify = require('./notify')
+
+
+const delay = ms => new Promise(_ => setTimeout(_, ms));
+
+const fetch = (_, method, url, _config, data) => {
   let {key} = _
-  if (data) config.data = data
+  let config = Object.assign({}, _.configuration, _config)
+  config.data = data || config.data
+  config.url = url || config.url
+  config.method = method || config.method
 
-  let info = { key, ...config, loading: true}
-  notify(_.listeners.before, info)
-  notify(_.listeners.change, info)
+  _.configuration.uuid = Math.random()
 
-  return axios
+  let requester = () => {
+    let info = { key, ...config, loading: true}
+    notify(_.listeners, info, 'before', 'change', 'info')
+
+    return axios
     .request(config)
     .then(response => {
+      let {status, data} = response
       let info = { key, ...config, loading: false, response}
-      notify(_.listeners.change, info)
-      notify(_.listeners.success, info)
-      notify(_.listeners.complete, info)
+      notify(_.listeners, info, 'change', 'success', 'complete', status)
+      log(info, _.configuration.log)
       return response
     })
-    .catch(error => {
+    .catch((error = {})=> {
       let info = { key, ...config, loading: false, error}
-      notify(_.listeners.change, info)
-      notify(_.listeners.error, info)
-      notify(_.listeners.complete, info)
+      let {response = {}} = error
+      notify(_.listeners, info, 'change', 'error', 'complete', response.status)
+      log(info, _.configuration.log)
       return Promise.reject(error)
     })
-}
+  }
+  
+  let uuid = _.configuration.uuid
 
-
-const notify = (listeners, data) => {
-  listeners.forEach(_listener => _listener(data))
+  return delay(_.configuration.debounce || _.configuration.delay)
+  .then(() => {
+    let {debounce, uuid: _uuid} = _.configuration
+    if(debounce && uuid != _uuid)
+    return Promise.reject('debounced')
+    return requester()
+  })
 }
 
 module.exports = fetch
