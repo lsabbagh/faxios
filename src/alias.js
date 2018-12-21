@@ -1,11 +1,11 @@
-module.exports = function(target, name, ...args) {
+module.exports = function(target, name, key = name) {
   // alias can be done
   if (this[target]) {
 
-    // validate that it is not override a basic method
-    if(this.hasOwnProperty(name) || !this[name]){
+    // validate that it is not overriding a basic method
+    if(!this[name]) {
       this[name] = (..._args) => {
-        this[target](...args, ..._args)
+        this[target](key, ..._args)
         return this
       }
     }

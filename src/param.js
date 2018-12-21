@@ -1,6 +1,7 @@
 const addOrAppendTo = require('./add-or-append')
 
 module.exports = function(...args) {
-  addOrAppendTo.call(this, 'params', URLSearchParams, ...args)
+  let urlsearchparams = typeof URLSearchParams != 'undefined'
+  addOrAppendTo.call(this, 'params',urlsearchparams && URLSearchParams, ...args)
   return this
 }

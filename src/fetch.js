@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const log = require('./log')
 const notify = require('./notify')
-const get = require('./get')
+const get = require('lodash.get')
 
 
 const delay = ms => new Promise(_ => setTimeout(_, ms));
@@ -12,7 +12,7 @@ const fetch = (_, method, url, _config, data) => {
   let config = Object.assign({}, _.configuration, _config)
   config.data = data || config.data
   config.url = url || config.url
-  config.method = method || config.method
+  config.method = method || config.method || 'GET'
 
   _.configuration.uuid = Math.random()
 

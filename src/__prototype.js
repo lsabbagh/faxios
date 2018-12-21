@@ -31,7 +31,7 @@ module.exports = {
   in: _in,
   p, d, f, u, b,
 
-  request: function (config) { return fetch(this, 'request', undefined, config) },
+  request: function (config) { return fetch(this, null, undefined, config) },
 
   get FETCH() { return fetch(this) },
 

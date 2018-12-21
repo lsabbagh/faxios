@@ -14,8 +14,9 @@ const addOrAppend = function(target, _class, ...args) {
     if (input == _class) { value = append(_class, currentValue) }
 
     if (typeof input == 'string'
-     || input instanceof _class
-     || currentValue instanceof _class) {
+     || _class && (
+       input instanceof _class || currentValue instanceof _class))
+        {
       value = append(_class, currentValue, input)
     }
 
@@ -33,8 +34,12 @@ const addOrAppend = function(target, _class, ...args) {
 
   if (args.length > 1) {
     let [key, value] = args
-    if (currentValue instanceof URLSearchParams
-       || currentValue instanceof FormData) {
+
+    let urlsearchparams = typeof URLSearchParams != 'undefined'
+    let formdata = typeof FormData != 'undefined'
+
+    if ((urlsearchparams && currentValue instanceof URLSearchParams)
+       || (formdata && currentValue instanceof FormData)) {
       if(Array.isArray(value)) {
         let _key = key + '[]'
         value.forEach(_ => {
