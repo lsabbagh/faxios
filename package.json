@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Simple and advanced HTTP client for the browser and node.js",
@@ -9,7 +9,7 @@
     "start": "node ./fuse.js",
     "dist": "node ./fuse.js dist",
     "web": "npm run build && npm run dist",
-    "test": "mocha test/mocha",
+    "test": "mocha test/mocha --timeout=5000",
     "test:basics": "mocha test/basics.js",
     "test:listeners": "mocha test/listeners.js",
     "test:fresh": "npm run build && mocha test/basics.js test/listeners.js",

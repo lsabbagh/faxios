@@ -96,6 +96,15 @@ module.exports = {
   onSuccess: function (_listener) { return on.call(this, '2[0-9][0-9]', _listener) },
   onRedirectional: function (_listener) { return on.call(this, '3[0-9][0-9]', _listener) },
   onClientError: function (_listener) { return on.call(this, '4[0-9][0-9]', _listener) },
-  onServerError: function (_listener) { return on.call(this, '5[0-9][0-9]', _listener) }
+  onServerError: function (_listener) { return on.call(this, '5[0-9][0-9]', _listener) },
+
+  onBadRequest: function (_listener) { return on.call(this, 'BadRequest', _listener) },
+  onUnauthorized: function (_listener) { return on.call(this, 'Unauthorized', _listener) },
+  onForbidden: function (_listener) { return on.call(this, 'Forbidden', _listener) },
+  onNotFound: function (_listener) { return on.call(this, 'NotFound', _listener) },
+  onInternalServerError: function (_listener) { return on.call(this, 'InternalServerError', _listener) },
+  onBadGateway: function (_listener) { return on.call(this, 'BadGateway', _listener) },
+  onServiceUnavailable: function (_listener) { return on.call(this, 'ServiceUnavailable', _listener) },
+  onGatewayTimeout: function (_listener) { return on.call(this, 'GatewayTimeout', _listener) },
 
 }

@@ -1,10 +1,10 @@
-# Faxios
+<!-- # Faxios -->
 
-[![npm version](https://img.shields.io/npm/v/faxios.svg?style=flat-square)](https://www.npmjs.org/package/faxios)
+<!-- [![npm version](https://img.shields.io/npm/v/faxios.svg?style=flat-square)](https://www.npmjs.org/package/faxios)
 [![npm downloads](https://img.shields.io/npm/dm/faxios.svg?style=flat-square)](http://npm-stat.com/charts.html?package=faxios)
-[![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/lsabbagh/faxios)
+[![gitter chat](https://img.shields.io/gitter/room/mzabriskie/faxios.svg?style=flat-square)](https://gitter.im/lsabbagh/faxios) -->
 
-Simple HTTP client for the browser and node.js on top of Axios
+Simple and advanced HTTP client for the browser and node.js
 
 <!---!--->
 ![](docs/images/carbon_2018-11-16_11-27-36.png)
@@ -248,17 +248,31 @@ faxios()
     .postId(1)
     .data('key1', 'value1')
 
-    .onBefore(config => l('before sending', config))
-    .onSuccess(config => l('only on success', config)) //200
-    .onError(config => l('only on error ', config))
-    .onComplete(config => l('on success and error', config))
-    .onChange(config => l('before and complete', config))
+    .onBefore(config => {/* do stuff..*/}) // before sending
+    .onSuccess(config => {/* do stuff..*/}) // on 200, 201, ..... etc
+    .onError(config => {/* do stuff..*/}) // only on error
+    .onComplete(config => {/* do stuff..*/}) // after finishing the request
+    .onChange(config => {/* do stuff..*/}) // before and after finishing the request
 
-    .onInformational((config) => l('onInformational, response status matches 1[0-9][0-9]'))
-    .onSuccess((config) => l('onSuccess, response status matches 2[0-9][0-9]'))
-    .onRedirectional((config) => l('onRedirectional, response status matches 5[0-9][0-9]'))
-    .onClientError((config) => l('onClientError, response status matches 4[0-9][0-9]'))
-    .onServerError((config) => l('onServerError, response status matches 5[0-9][0-9]'))
+    .onInformational((config) => {/* do stuff..*/}) //status matches 1[0-9][0-9]
+    .onSuccess((config) => {/* do stuff..*/}) // status matches 2[0-9][0-9]
+    .onRedirectional((config) =>  {/* do stuff..*/}) // status matches 5[0-9][0-9]
+    .onClientError((config) =>  {/* do stuff..*/}) // status matches 4[0-9][0-9]
+    .onServerError((config) => {/* do stuff..*/}) //status matches 5[0-9][0-9]
+
+    .onBadRequest((config) => {/* do stuff..*/}) // status equal to 400
+    .onUnauthorized((config) => {/* do stuff..*/}) // status equal to 401
+    .onForbidden((config) => {/* do stuff..*/})  // status equal to 403 
+    .onNotFound((config) => {/* do stuff..*/})  // status equal to 404 
+    .onInternalServerError((config) => {/* do stuff..*/}) // status equal to 500
+    .onBadGateway((config) => {/* do stuff..*/}) // status equal to 502
+    .onServiceUnavailable((config) => {/* do stuff..*/}) // status equal to 503
+    .onGatewayTimeout((config) => {/* do stuff..*/}) // status equal to 504
+
+     // or
+    .on('success', () => {/* do stuff..*/})
+    .on('Bad Request', () => {/* do stuff...*/})
+    .on('*status name here, check http statueses*', () => {/* do stuff...*/})
 
     // regex
     .on(200, () => console.log('on response status is 200'))

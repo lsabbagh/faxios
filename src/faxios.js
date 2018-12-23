@@ -1,5 +1,3 @@
-const fetch = require('./fetch')
-const joinUrl = require('proper-url-join')
 const axios = require('axios')
 
 
