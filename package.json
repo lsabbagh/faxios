@@ -1,6 +1,6 @@
 {
   "name": "faxios",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "main": "lib/index.js",
   "main:next": "lib/index.js",
   "description": "Simple and advanced HTTP client for the browser and node.js",
