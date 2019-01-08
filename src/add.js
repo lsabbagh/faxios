@@ -1,9 +1,10 @@
 const plainObject = require('./plain-object')
 
-module.exports = function(target, ...args) {
+module.exports = function (target, ...args) {
   if (!this.configuration[target]) {
     this.configuration[target] = {}
   }
+
   let [key, value] = args
 
   let _ = this.configuration[target]
@@ -13,7 +14,7 @@ module.exports = function(target, ...args) {
     return this
   }
 
-  if(typeof _.append == 'function') {
+  if (typeof _.append == 'function') {
     _.append(key, value)
   }
 

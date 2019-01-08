@@ -23,10 +23,10 @@ const fetch = (_, method, url, _config, data) => {
     return axios
     .request(config)
     .then(response => {
+      let {status} = response
       if(config.in) {
         response = get(response, config.in)
       }
-      let {status, data} = response
       let info = { key, ...config, loading: false, response}
       notify(_.listeners, info, 'change', 'success', 'complete', status)
       log(info, _.configuration.log)

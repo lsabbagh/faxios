@@ -30,7 +30,9 @@
         "node": true
         },
         "rules": {
+          //Imports
           //
+          "import/no-unresolved": "off",
           //Possible Errors
           //
           // The following rules point out areas where you might have made mistakes.
@@ -229,7 +231,7 @@
         // disallow use of undefined variable (off by default)
         "no-unused-vars": 2,
         // disallow declaration of variables that are not used in the code
-        "no-use-before-define": 2,
+        "no-use-before-define": 0,
         // disallow use of variables before they are defined
 
         //
@@ -504,5 +506,13 @@
        "Utils": true,
        "Stores": true,
        "ls": true,
-      },
+       "cenote": true,
+       "ss": true,
+       "is": true,
+       "faxios": true,
+       "S": true,
+       "Styles": true,
+       "Images": true,
+       "Icons": true
+      }
     }
