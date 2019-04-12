@@ -1,6 +1,6 @@
-const plainObject = require('./plain-object')
+import plainObject from './plain-object'
 
-module.exports = function (target, ...args) {
+function add(target, ...args) {
   if (!this.configuration[target]) {
     this.configuration[target] = {}
   }
@@ -20,3 +20,5 @@ module.exports = function (target, ...args) {
 
   return this
 }
+
+export default add

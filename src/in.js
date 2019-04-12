@@ -1,6 +1,13 @@
-const set = require('./set')
+import set from './.internal/set'
 
-module.exports = function(input) {
-  set.call(this, 'in', input)
+/**
+ *
+ * @param {string} path the path of the response
+ * @returns {object} this
+ */
+function in_(path) {
+  set.call(this, 'in', path)
   return this
 }
+
+export default in_

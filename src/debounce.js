@@ -1,6 +1,13 @@
-const set = require('./set')
+import set from './.internal/set'
 
-module.exports = function(duration, key) {
+/**
+ *
+ * @param {number} duration the duration debounce time
+ * @returns {object} this
+ */
+function debounce(duration) {
   set.call(this, 'debounce', duration)
   return this
 }
+
+export default debounce

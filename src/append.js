@@ -1,22 +1,30 @@
-const plainObject = require('./plain-object')
+import plainObject from './.internal/plain-object'
 
-module.exports = (_class, ...args) => {
+/**
+ *
+ * @param {FormData|URLSearchParams} _class the class
+ * @param  {...any} args arguments
+ * @returns {object} this
+ */
+function append(_class, ...args) {
   let result = new _class()
-  args.forEach(_ => {
-    if (plainObject(_)) {
-      for(let key in _) {
-        result.append(key, _[key])
-      }
+  args.forEach(argument => {
+    if (plainObject(argument)) {
+      let keys = Object.keys(argument)
+      keys.forEach(key => {
+        let value = argument[key]
+        result.append(key, value)
+      })
       return
     }
     let source
-    if(_ instanceof _class) {
-      source = [..._.entries()]
+    if (argument instanceof _class) {
+      source = [...argument.entries()]
     } else {
-      source = [...(new _class(_).entries())]
+      source = [...(new _class(argument).entries())]
     }
 
-    if(source) {
+    if (source) {
       source.forEach(([key, value]) => result.append(key, value))
     }
   })
@@ -24,3 +32,5 @@ module.exports = (_class, ...args) => {
 
   return result
 }
+
+export default append

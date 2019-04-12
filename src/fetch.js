@@ -1,58 +1,59 @@
-const axios = require('axios')
+import axios from 'axios'
+import notify from './.internal/notify'
+import onThen from './.internal/onThen'
+import onCatch from './.internal/onCatch'
 
-const log = require('./log')
-const notify = require('./notify')
-const get = require('lodash.get')
+const delay = ms => new Promise(_ => setTimeout(_, ms))
 
-
-const delay = ms => new Promise(_ => setTimeout(_, ms));
-
-const fetch = (_, method, url, _config, data) => {
-  let {key} = _
-  let config = Object.assign({}, _.configuration, _config)
-  config.data = data || config.data
-  config.url = url || config.url
-  config.method = method || config.method || 'GET'
-
-  _.configuration.uuid = Math.random()
-
-  let requester = () => {
-    let info = { key, ...config, loading: true}
-    notify(_.listeners, info, 'before', 'change', 'info')
-
-    return axios
-    .request(config)
-    .then(response => {
-      let {status} = response
-      if(config.in) {
-        response = get(response, config.in)
-      }
-      let info = { key, ...config, loading: false, response}
-      notify(_.listeners, info, 'change', 'success', 'complete', status)
-      log(info, _.configuration.log)
-      return response
-    })
-    .catch((error = {})=> {
-      if(error.response && config.in) {
-        error.response = get(error.response, config.in)
-      }
-      let info = { key, ...config, loading: false, error}
-      let {response = {}} = error
-      notify(_.listeners, info, 'change', 'error', 'complete', response.status)
-      log(info, _.configuration.log)
-      return Promise.reject(error)
-    })
+const fetch = (instance, axiosMethod = 'GET', axiosURL, axiosConfig, axiosData) => {
+  let {configuration} = instance
+  let config = {
+    url: axiosURL,
+    method: axiosMethod,
+    ...configuration,
+    ...axiosConfig,
+    data: {
+      ...axiosData,
+      ...configuration.data
+    }
   }
-  
-  let uuid = _.configuration.uuid
 
-  return delay(_.configuration.debounce || _.configuration.delay)
-  .then(() => {
-    let {debounce, uuid: _uuid} = _.configuration
-    if(debounce && uuid != _uuid)
-    return Promise.reject('debounced')
-    return requester()
-  })
+  if (!Object.keys(config.data).length) {
+    delete config.data
+  }
+
+  let uuid = Date.now() + Math.random()
+
+  configuration.uuid = uuid
+
+  return delay(configuration.debounce || configuration.delay)
+    .then(() => {
+      if (uuid != configuration.uuid) {
+        return Promise.reject('debounced')
+      }
+
+      let info = {
+        ...config,
+        key: instance.key,
+        loading: true
+      }
+
+
+      notify(instance.listeners, info, 'before', 'change', 'info')
+
+      return axios
+        .request(config)
+        .then(response => onThen({
+          response,
+          config,
+          instance
+        }))
+        .catch(error => onCatch({
+          error,
+          config,
+          instance
+        }))
+    })
 }
 
-module.exports = fetch
+export default fetch

@@ -1,4 +1,11 @@
-module.exports = (listeners, data, ...events) => {
+/**
+ * 
+ * @param {Array<Function>} listeners 
+ * @param {object} data 
+ * @param  {Array<any>} events 
+ * @returns {object} this
+ */
+ function notify(listeners, data, ...events) {
   let queries = Object.keys(listeners)
   events.forEach(event => {
     if(!event) return
@@ -16,4 +23,7 @@ module.exports = (listeners, data, ...events) => {
       }
     })
   })
+  return this
 }
+
+export default notify

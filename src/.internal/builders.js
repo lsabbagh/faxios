@@ -1,4 +1,4 @@
-module.exports = {
+const builders = {
   _builders : {},
   add(...params){
     switch(params.length) {
@@ -6,13 +6,13 @@ module.exports = {
       let [_obj] = params
       if(typeof _obj == 'object') {
         for(let name in _obj) {
-          addBuilder(this._builders, name, _obj[name])
+          _addBuilder(this._builders, name, _obj[name])
         }
       }
       break;
       case 2:
       let [name, builder] = params
-      addBuilder(this._builders, name, builder)
+      _addBuilder(this._builders, name, builder)
       break;
     }
   },
@@ -28,7 +28,9 @@ module.exports = {
   }
 }
 
-const addBuilder = (_builders, name, builder) => {
+export default builders
+
+function _addBuilder(_builders, name, builder) {
   // @TODO: invalid params
   if(typeof name != 'string' ||  typeof builder !== 'function')  return
 

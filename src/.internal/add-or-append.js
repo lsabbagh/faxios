@@ -1,29 +1,28 @@
-const plainObject = require('./plain-object')
-const append = require('./append')
-const set = require('./set')
-const add = require('./add')
+import plainObject from './plain-object'
+import append from '../append'
+import set from './set'
+import add from './add'
 
-const addOrAppend = function(target, _class, ...args) {
-
+function addOrAppend(target, _class, ...args) {
   let currentValue = this.configuration[target] || {}
 
   if (args.length == 1) {
+    let [input] = args; let value
 
-    let [input] = args, value
-
-    if (input == _class) { value = append(_class, currentValue) }
+    if (input == _class) {
+      value = append(_class, currentValue)
+    }
 
     if (typeof input == 'string'
      || _class && (
-       input instanceof _class || currentValue instanceof _class))
-        {
+       input instanceof _class || currentValue instanceof _class)) {
       value = append(_class, currentValue, input)
     }
 
     if (value) {
       set.call(this, target, value)
     } else if (plainObject(input, currentValue)) {
-      if(!this.configuration[target]) {
+      if (!this.configuration[target]) {
         this.configuration[target] = {}
       }
       Object.assign(this.configuration[target], input)
@@ -40,7 +39,7 @@ const addOrAppend = function(target, _class, ...args) {
 
     if ((urlsearchparams && currentValue instanceof URLSearchParams)
        || (formdata && currentValue instanceof FormData)) {
-      if(Array.isArray(value)) {
+      if (Array.isArray(value)) {
         let _key = key + '[]'
         value.forEach(_ => {
           addOrAppend.call(this, target, _class, _key, _)
@@ -57,4 +56,4 @@ const addOrAppend = function(target, _class, ...args) {
 }
 
 
-module.exports = addOrAppend
+export default addOrAppend

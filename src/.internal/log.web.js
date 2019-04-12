@@ -1,4 +1,4 @@
-module.exports = (info, options) => {
+function logWeb(info, options) {
   if (!info) return
   //log browser
   const l = console.log
@@ -39,7 +39,9 @@ module.exports = (info, options) => {
   ge('more...')
 }
 
-const padder = (value = '', length, char = '-') =>  {
+export default logWeb
+
+function _padder (value = '', length, char = '-') {
   let result = value
   for(let i = 0; i < length - value.length; i++){
     result = char + result

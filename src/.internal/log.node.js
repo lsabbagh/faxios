@@ -1,6 +1,6 @@
-const {URL} = require('url')
+import {URL} from 'url'
 
-module.exports = (info, options) => {
+function logNode(info, options) {
     //log browser
     const l = console.log
 
@@ -30,6 +30,8 @@ module.exports = (info, options) => {
     }
     l('\n\n')
 }
+
+export default logNode
 
 const sep = '---------------'
 const Reset = "\x1b[0m"
@@ -62,7 +64,7 @@ const Bg = {
   ,White : "\x1b[47m"
 }
 
-const padder = (value = '', length, char = '-') =>  {
+function padder(value = '', length, char = '-')  {
   let result = value
   for(let i = 0; i < length - value.length; i++){
     result = char + result

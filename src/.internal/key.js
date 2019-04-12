@@ -1,4 +1,8 @@
-module.exports = function(...args) {
+/**
+ * 
+ * @param  {...any} args 
+ */
+function key(...args) {
   if (args.length == 1 && typeof args[0] == 'function') {
     this.key = args[0](this.configuration)
   } else {
@@ -6,3 +10,5 @@ module.exports = function(...args) {
   }
   return this
 }
+
+export default key
