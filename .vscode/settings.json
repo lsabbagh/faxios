@@ -1,0 +1,13 @@
+{
+  "eslint.autoFixOnSave": true,
+  "vim.easymotionMarkerBackgroundColor": "#3CB371",
+      "workbench.colorCustomizations": {
+        "activityBar.background": "#006666",
+        "statusBar.background" : "#003366",
+        "statusBar.noFolderBackground" : "#003366",
+        "statusBar.debuggingBackground": "#003366",
+        "titleBar.activeBackground": "#00aaaa",
+        "titleBar.activeForeground":"#003366",
+        "contrastBorder": "#003366"
+    },
+}

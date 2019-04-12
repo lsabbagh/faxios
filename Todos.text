@@ -1,0 +1,32 @@
+[ ] Add find
+     it's an alias for get and param(args)
+     @example faxios().find({id: 5}).then(_ => {...})
+
+[ ] Add create
+     it's an alias for post and data(args) 
+
+[ ] Add destroy
+     it's an alias for delete and data(args)
+
+[ ] Add update
+     it's an alias for put and data(args)
+
+[ ] Add safe function
+
+[ ] Add finally function
+
+[ ] Add testing units for every file
+
+[ ] Rename internal files, and separate them
+
+[ ] Add conditional catch
+
+[ ] Add dictionary to statuses
+
+[ ] Add cookies utility
+
+[ ] Add interceptors, with conditions
+
+[ ] Add testing utilities
+
+[ ] Add modules
