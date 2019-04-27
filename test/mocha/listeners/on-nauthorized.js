@@ -4,7 +4,7 @@ describe('onUnauthorized', function () {
   it('onUnauthorized', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/401')
+      .baseURL('https://httpstat.us/401')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))

@@ -5,7 +5,7 @@ describe('onBadRequest', function () {
   it('onBadRequest', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/400')
+      .baseURL('https://httpstat.us/400')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))
@@ -15,14 +15,15 @@ describe('onBadRequest', function () {
       .onError(() => res.push('onError'))
       .on(400, () => res.push('400'))
       .GET
-      .then(res => {
-        done('then!')
+      .then(() => {
+        done('success!')
       })
       .catch(err => {
-        if (res.length < 4) {
-          done(res)
-        } else {
+        let status = err.response.status
+        if (status == 400 && res.length == 4) {
           done()
+        } else {
+          done('on bad request')
         }
       })
   })

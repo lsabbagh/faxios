@@ -5,7 +5,7 @@ describe('onForbidden', function () {
   it('onForbidden', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/403')
+      .baseURL('https://httpstat.us/403')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))

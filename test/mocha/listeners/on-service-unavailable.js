@@ -4,7 +4,7 @@ describe('onServiceUnavailable', function () {
   it('onServiceUnavailable', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/503')
+      .baseURL('https://httpstat.us/503')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))

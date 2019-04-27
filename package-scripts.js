@@ -12,7 +12,8 @@ module.exports = {
       mocha: {
         default: 'nps test.mocha.basics test.mocha.listeners',
         basics: 'mocha test/mocha/basics  --require test/mocha/config.js --timeout=15000',
-        listeners: 'mocha test/mocha/listeners --timeout=15000'
+        listeners: 'mocha test/mocha/listeners --timeout=15000',
+        current: 'mocha test/mocha/listeners/on-bad-request --timeout=15000'
       }
     },
     release: 'npm run web && git push origin master && npm publish',

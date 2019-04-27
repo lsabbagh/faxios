@@ -4,7 +4,7 @@ describe('onNotFound', function () {
   it('onNotFound', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/404')
+      .baseURL('https://httpstat.us/404')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))

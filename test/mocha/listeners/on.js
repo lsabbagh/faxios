@@ -4,7 +4,7 @@ describe('on', function () {
   it('on', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/410')
+      .baseURL('https://httpstat.us/410')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))

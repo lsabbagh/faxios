@@ -5,7 +5,7 @@ describe('onInternalServerError', function () {
   it('onInternalServerError', function (done) {
     let res = []
     faxios()
-      .url('https://httpstat.us/500')
+      .baseURL('https://httpstat.us/500')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))
