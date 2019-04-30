@@ -1,12 +1,15 @@
 module.exports = {
   scripts: {
     build: {
-      default: 'babel src --out-dir lib && babel src/.internal --out-dir lib/.internal',
+      default: 'nps build.src build.internal',
+      src: 'babel src --out-dir lib --extensions ".ts"',
+      internal: 'babel src/.internal --out-dir lib/.internal --extensions ".ts"',
       clean: 'rm -rf lib && nps build'
     },
-    start: 'node ./fuse.js',
-    dist: 'node ./fuse.js dist',
-    web: 'npm run build && npm run dist',
+    fuse: {
+      start: 'node ./fuse.js',
+      dist: 'node ./fuse.js dist'
+    },
     test: {
       default: 'nps test.mocha',
       mocha: {

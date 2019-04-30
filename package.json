@@ -35,6 +35,7 @@
     "eslint-plugin-react": "^7.12.3",
     "eslint-plugin-standard": "^4.0.0",
     "fuse-box": "^3.0.0-next.11",
+    "jest": "^24.7.1",
     "mocha": "^5.1.0",
     "nps": "^5.9.3",
     "rollup": "^0.57.1",

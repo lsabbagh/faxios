@@ -1,6 +1,6 @@
 const faxios = require('../../../lib')
-describe('alias', function () {
-  it('alias(type, key, name)', function (done) {
+describe('alias', () => {
+  it('alias(type, key, name)', (done) => {
     faxios()
       .build('base')
       .alias('param', 'postId') // <-- setting the alias

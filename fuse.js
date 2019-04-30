@@ -1,28 +1,28 @@
-const {
-  FuseBox,
-  QuantumPlugin,
-  WebIndexPlugin,
-  Sparky
-} = require('fuse-box')
+/* eslint-disable */
 
-let fuse; let bundle
-let isProduction = true
+const { FuseBox, QuantumPlugin, WebIndexPlugin, Sparky } = require('fuse-box')
 
-// we can change the target when making a seperate bundle
-let target = 'browser'
+let fuse
+let bundle
+let isProduction = false
+
 
 // bundle name needs to be changed too (as we are making an isolate build and
 // and we need to bundle the API into it
-let bundleName = 'es5'
+let bundleName = 'es6'
 
-let instructions = '> index.js'
+let instructions = '> index.ts'
+
 
 Sparky.task('config', () => {
+  let output = isProduction ? 'dist' : 'dev'
   fuse = FuseBox.init({
     homeDir: 'src',
-    // globals: { 'default': '*' }, // we need to expore index in our bundles
-    output: 'dist/$name.js',
-    target,
+    globals: { default: '*' }, // we need to expore index in our bundles
+    target: isProduction ? 'browser@es6':'browser@es6',
+    output: `${output}/$name.js`,
+    cache: false,
+    tsConfig: [{ target: bundleName }], // override tsConfig
     plugins: [
       WebIndexPlugin(),
       isProduction && QuantumPlugin({
@@ -38,29 +38,37 @@ Sparky.task('config', () => {
 
 
 Sparky.task('clean', () => {
-  return Sparky.src('dist/').clean('dist/')
+  let output = isProduction ? 'dist' : 'dev'
+  return Sparky.src(`${output}/`).clean(`${output}/`)
 })
 
-Sparky.task('copy-src', () => Sparky.src('./**', {
-  base: './src'
-}).dest('dist/'))
-Sparky.task('copy-pkg', () => Sparky.src('./package.json').dest('dist/'))
+Sparky.task('copy-src', () => {
+  let output = isProduction ? 'dist' : 'dev'
+  Sparky.src('./**', { base: './src' }).dest(`${output}/`)
+})
+
+Sparky.task('copy-pkg', () => {
+  let output = isProduction ? 'dist' : 'dev'
+  Sparky.src('./package.json').dest(`${output}/`)
+})
 
 Sparky.task('dev', ['clean'], () => {
   bundleName = 'app'
-  instructions = '> index.js'
+  instructions = '> dev.ts'
 })
 
 Sparky.task('dist-es5', async () => {
+  target = 'browser@es5'
   isProduction = true
-  // isProduction = false;
   bundleName = 'es5'
-  instructions = '> index.js'
   await Sparky.resolve('config')
-  await fuse.run()
+  // await fuse.run()
+  await fuse.dev()
+  bundle.hmr().watch()
+  fuse.run()
 })
 
-Sparky.task('dist', ['clean', 'dist-es5'], () => {
+Sparky.task('dist', ['clean', 'copy-src', 'copy-pkg', 'dist-es5'], () => {
 
 })
 
@@ -68,8 +76,6 @@ Sparky.task('dist', ['clean', 'dist-es5'], () => {
 // Development
 Sparky.task('default', ['dev', 'config'], () => {
   fuse.dev()
-  bundle
-    .hmr()
-    .watch()
+  bundle.hmr().watch()
   fuse.run()
 })

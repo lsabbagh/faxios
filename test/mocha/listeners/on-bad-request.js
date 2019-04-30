@@ -5,7 +5,7 @@ describe('onBadRequest', function () {
   it('onBadRequest', function (done) {
     let res = []
     faxios()
-      .baseURL('https://httpstat.us/400')
+      .url('https://httpstat.us/400')
       .onInformational(() => done('onInformational!'))
       .onSuccess(() => done('onSuccess'))
       .onRedirectional(() => done('onRedirectional!'))
